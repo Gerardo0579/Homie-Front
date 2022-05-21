@@ -1,0 +1,18 @@
+.avatarImg{
+    margin: 5px;
+    width: calc(100% - 10px);
+    
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(27, 31, 36, 0.15);
+    border: 1px solid #d0d7de;
+}
+.title1{
+    font-size: 24px !important;
+    font-weight: 300;
+    color: black;
+}
+.title2{
+    font-size: 20px;
+    font-weight: 300;
+    color: #57606a;
+}
