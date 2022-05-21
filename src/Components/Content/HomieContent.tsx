@@ -1,15 +1,13 @@
-import { List, Space, Typography } from 'antd'
+import { Col, List, Row, Select, Space, Typography } from 'antd'
 import { FC } from 'react'
 import { RepositoriesData } from '../../Types/RepositoriesData'
-import { Link } from 'react-router-dom'
-import { StarIcon } from '../../Icons/StarIcon'
-import { ForkIcon } from '../../Icons/ForkIcon'
-import { BalanceIcon } from '../../Icons/BalanceIcon'
-import { HomieBadge } from '../Badge/HomieBadge'
-import { HomieLanguageItem } from '../LanguageItem.tsx/HomieLanguageItem'
-import { LanguagesColorSchemasData } from './LanguagesColorSchemasData'
+import { HomieRepoActions } from './ReposList/HomiRepoActions'
+import { HomieRepoDescription } from './ReposList/HomieRepoDescription'
+import { HomieRepoHeader } from './ReposList/HomieRepoHeader'
+import { Input } from 'antd'
 
-const { Text } = Typography
+const { Search } = Input
+const { Option } = Select
 
 interface HomieContentProps {
   reposData: RepositoriesData[]
@@ -44,91 +42,39 @@ export const HomieContent: FC<HomieContentProps> = (data) => {
   const listDataSource = manageReposData(data)
   const pageSize = { pageSize: 30 }
   return (
-    <List
-      itemLayout="vertical"
-      size="large"
-      pagination={pageSize}
-      dataSource={listDataSource}
-      renderItem={(item) => (
-        <List.Item key={item.repo_name} actions={RepoActions(item)}>
-          <List.Item.Meta title={RepoHeader(item)} />
-          {RepoDescription(item)}
-        </List.Item>
-      )}
-    />
-  )
-}
-
-function RepoDescription(item: {
-  is_forked: boolean
-  fork_url: string
-  description: string
-}) {
-  return (
-    <Space direction="vertical">
-      {item.is_forked && (
-        <Text>
-          Forked from{' '}
-          <Link to={item.fork_url}>{formatForkUrl(item.fork_url)}</Link>
-        </Text>
-      )}
-      <Text>{item.description}</Text>
-    </Space>
-  )
-}
-
-const formatForkUrl = (url: string) => url.replace('https://github.com/', '')
-
-function RepoHeader(item: {
-  repo_name: string
-  repo_url: string
-  type: string
-}) {
-  return (
-    <Space>
-      <a href={item.repo_url}>{item.repo_name}</a>
-      <HomieBadge content={item.type} />
-    </Space>
-  )
-}
-
-function RepoActions(item: {
-  language: string
-  language_url: string
-  stars: number
-  stars_url: string
-  forks: number
-  forks_url: string
-  license_type: string
-  last_update: string
-}) {
-  return [
-    <Link to={item.language_url} type="text">
-      <HomieLanguageItem
-        Content={item.language}
-        CircleColor={GetLangaugeColor(item.language)}
+    <>
+      <Row gutter={16}>
+        <Col span={15}>
+          <Search placeholder="input search loading default" loading />
+        </Col>
+        <Col span={3}>
+          <Select defaultValue="lucy" style={{ width: 120 }} allowClear>
+            <Option value="lucy">Lucy</Option>
+          </Select>
+        </Col>
+        <Col span={3}>
+          <Select defaultValue="lucy" style={{ width: 120 }} allowClear>
+            <Option value="lucy">Lucy</Option>
+          </Select>
+        </Col>
+        <Col span={3}>
+          <Select defaultValue="lucy" style={{ width: 120 }} allowClear>
+            <Option value="lucy">Lucy</Option>
+          </Select>
+        </Col>
+      </Row>
+      <List
+        itemLayout="vertical"
+        size="large"
+        pagination={pageSize}
+        dataSource={listDataSource}
+        renderItem={(item) => (
+          <List.Item key={item.repo_name} actions={HomieRepoActions(item)}>
+            <List.Item.Meta title={HomieRepoHeader(item)} />
+            {HomieRepoDescription(item)}
+          </List.Item>
+        )}
       />
-    </Link>,
-    <Link to={item.stars_url} type="text">
-      <StarIcon text={item.stars} />
-    </Link>,
-    <Link to={item.forks_url} type="text">
-      <ForkIcon text={item.forks} />
-    </Link>,
-    <BalanceIcon text={item.license_type} />,
-    <Link to={item.forks_url} type="text">
-      <ForkIcon text={item.forks} />
-    </Link>,
-    <Text>{`Updated on ${item.last_update}`}</Text>
-  ]
-}
-
-const GetLangaugeColor = (language: string): string => {
-  const langColor = LanguagesColorSchemasData.filter(
-    (langColor) =>
-      langColor.Language.toLowerCase() === language?.toLocaleLowerCase()
+    </>
   )
-
-  if (langColor?.length == 0) return 'grey'
-  else return langColor[0].Color
 }

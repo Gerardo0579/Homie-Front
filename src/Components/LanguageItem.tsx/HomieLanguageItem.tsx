@@ -1,4 +1,3 @@
-import { Space } from 'antd'
 import { FC } from 'react'
 import styles from './HomieLanguageItem.module.css'
 
@@ -12,12 +11,12 @@ export const HomieLanguageItem: FC<HomieLanguageItemProps> = ({
   CircleColor
 }) => {
   return (
-    <Space>
+    <div className={styles.LangColorContainer}>
       <div
         className={styles.LanguageCircle}
         style={{ backgroundColor: CircleColor }}
       />
       <div>{Content}</div>
-    </Space>
+    </div>
   )
 }

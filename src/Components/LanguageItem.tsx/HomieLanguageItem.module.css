@@ -1,8 +1,12 @@
+.LangColorContainer{
+    display: flex;
+    align-items: center;
+    gap:8px;
+}
 .LanguageCircle{
     width: 1em;
     height: 1em;
     font-size: 1em;
     border-radius: 50%;
     border: 1px solid rgb(240, 240, 240);
-    margin: 0 1em;
 }
