@@ -6,20 +6,24 @@ const { Text } = Typography
 
 interface HomieRepoDescriptionProps {
   is_forked: boolean
-  fork_url: string
-  fork_name: string
+  fork_url?: string
+  fork_name?: string
   description: string
 }
-export const HomieRepoDescription: FC<HomieRepoDescriptionProps> = (item) => {
+export const HomieRepoDescription: FC<HomieRepoDescriptionProps> = ({
+  is_forked,
+  fork_url = '',
+  fork_name = '',
+  description
+}) => {
   return (
     <Space direction="vertical">
-      {item.is_forked && (
+      {is_forked && fork_name && (
         <Text>
-          Forked from
-          <Link to={item.fork_url}>{item.fork_name}</Link>
+          Forked from <Link to={fork_url}>{fork_name}</Link>
         </Text>
       )}
-      <Text>{item.description}</Text>
+      <Text>{description}</Text>
     </Space>
   )
 }

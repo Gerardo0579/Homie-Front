@@ -4,17 +4,21 @@ import { RepositoriesData } from '../../Types/RepositoriesData'
 import { Input } from 'antd'
 import { HomieList } from '../HomieList/HomieList'
 import { HomieListType } from '../../Types/HomieListType'
+import { useParams } from 'react-router-dom'
 
-const { Search } = Input
-const { Option } = Select
+const { Option, OptGroup } = Select
 
 interface HomieContentProps {
   reposData: RepositoriesData[]
 }
 
-const manageReposData = ({ reposData }: HomieContentProps): HomieListType[] => {
+const manageReposData = (
+  { reposData }: HomieContentProps,
+  username: string
+): HomieListType[] => {
   return reposData.map((repo: RepositoriesData) => {
     return {
+      username: username,
       repo_name: repo.full_name,
       repo_url: repo.url,
       type: repo.private ? 'Private' : 'Public',
@@ -39,17 +43,20 @@ const manageReposData = ({ reposData }: HomieContentProps): HomieListType[] => {
 }
 
 export const HomieContent: FC<HomieContentProps> = (data) => {
-  const listDataSource: HomieListType[] = manageReposData(data)
+  const { username } = useParams<{ username: string }>()
+  const listDataSource: HomieListType[] = manageReposData(data, username)
   const pageSize = 30
   return (
     <>
       <Row gutter={16}>
         <Col span={15}>
-          <Search placeholder="input search loading default" loading />
+          <Input placeholder="Find a repository..." />
         </Col>
         <Col span={3}>
           <Select defaultValue="lucy" style={{ width: 120 }} allowClear>
-            <Option value="lucy">Lucy</Option>
+            <OptGroup label="Manager">
+              <Option value="lucy">Lucy</Option>
+            </OptGroup>
           </Select>
         </Col>
         <Col span={3}>

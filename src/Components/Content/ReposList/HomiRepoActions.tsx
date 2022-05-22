@@ -16,7 +16,8 @@ interface HomieRepoActionsProps {
   stars_url: string
   forks: number
   forks_url: string
-  license_type: string
+  license_type?: string
+  license_url?: string
   last_update: string
 }
 
@@ -26,7 +27,7 @@ export const HomieRepoActions: FC<HomieRepoActionsProps> = (item) => {
       {item.language && LanguageItem(item)}
       {item.stars > 0 && StarsItem(item)}
       {item.forks > 0 && ForksItem(item)}
-      {item.license_type && <BalanceIcon text={item.license_type} />}
+      {item.license_type && LicenseItem(item)}
       {item.last_update && <Text>{`Updated on ${item.last_update}`}</Text>}
     </Space>
   )
@@ -65,6 +66,17 @@ const ForksItem = (item: HomieRepoActionsProps) => {
   return (
     <Link to={item.forks_url} type="text">
       <ForkIcon text={item.forks} />
+    </Link>
+  )
+}
+
+const LicenseItem = ({
+  license_type = '',
+  license_url = ''
+}: HomieRepoActionsProps) => {
+  return (
+    <Link to={license_url} type="text">
+      <BalanceIcon text={license_type} />
     </Link>
   )
 }
