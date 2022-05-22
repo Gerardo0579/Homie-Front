@@ -1,10 +1,9 @@
-import { Col, List, Row, Select, Space, Typography } from 'antd'
+import { Col, Row, Select } from 'antd'
 import { FC } from 'react'
 import { RepositoriesData } from '../../Types/RepositoriesData'
-import { HomieRepoActions } from './ReposList/HomiRepoActions'
-import { HomieRepoDescription } from './ReposList/HomieRepoDescription'
-import { HomieRepoHeader } from './ReposList/HomieRepoHeader'
 import { Input } from 'antd'
+import { HomieList } from '../HomieList/HomieList'
+import { HomieListType } from '../../Types/HomieListType'
 
 const { Search } = Input
 const { Option } = Select
@@ -13,7 +12,7 @@ interface HomieContentProps {
   reposData: RepositoriesData[]
 }
 
-const manageReposData = ({ reposData }: HomieContentProps) => {
+const manageReposData = ({ reposData }: HomieContentProps): HomieListType[] => {
   return reposData.map((repo: RepositoriesData) => {
     return {
       repo_name: repo.full_name,
@@ -22,6 +21,7 @@ const manageReposData = ({ reposData }: HomieContentProps) => {
       is_forked: repo.fork,
       fork_url: repo.forks_url,
       description: repo.description,
+      topics: repo.topics,
       language: repo.language,
       language_url: repo.languages_url,
       stars: repo.stargazers_count,
@@ -39,8 +39,8 @@ const manageReposData = ({ reposData }: HomieContentProps) => {
 }
 
 export const HomieContent: FC<HomieContentProps> = (data) => {
-  const listDataSource = manageReposData(data)
-  const pageSize = { pageSize: 30 }
+  const listDataSource: HomieListType[] = manageReposData(data)
+  const pageSize = 30
   return (
     <>
       <Row gutter={16}>
@@ -63,18 +63,8 @@ export const HomieContent: FC<HomieContentProps> = (data) => {
           </Select>
         </Col>
       </Row>
-      <List
-        itemLayout="vertical"
-        size="large"
-        pagination={pageSize}
-        dataSource={listDataSource}
-        renderItem={(item) => (
-          <List.Item key={item.repo_name} actions={HomieRepoActions(item)}>
-            <List.Item.Meta title={HomieRepoHeader(item)} />
-            {HomieRepoDescription(item)}
-          </List.Item>
-        )}
-      />
+
+      <HomieList items={listDataSource} pageSize={pageSize} />
     </>
   )
 }

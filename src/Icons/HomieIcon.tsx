@@ -5,12 +5,12 @@ import React, { FC } from 'react'
 
 interface HomieIconProps {
   icon: IconProp
-  text: string | number
+  text?: string | number
   key: string
 }
 
 export interface IconProps {
-  text: string | number
+  text?: string | number
 }
 
 export const HomieIcon: FC<HomieIconProps> = ({ icon, key, text = '' }) => (

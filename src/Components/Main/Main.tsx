@@ -30,7 +30,7 @@ export const Main: FC = () => {
           <HomieHeader />
         </Col>
         <Col span={16} push={4}>
-          <Row>
+          <Row gutter={32}>
             <Col span={6}>{userData && <HomieSider userData={userData} />}</Col>
             <Col span={18}>
               {reposData && <HomieContent reposData={reposData} />}

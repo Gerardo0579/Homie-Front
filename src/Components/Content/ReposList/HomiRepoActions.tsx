@@ -19,8 +19,9 @@ interface HomieRepoActionsProps {
   license_type: string
   last_update: string
 }
-export function HomieRepoActions(item: HomieRepoActionsProps) {
-  return [
+
+export const HomieRepoActions: FC<HomieRepoActionsProps> = (item) => {
+  return (
     <Space>
       {item.language && LanguageItem(item)}
       {item.stars > 0 && StarsItem(item)}
@@ -28,7 +29,7 @@ export function HomieRepoActions(item: HomieRepoActionsProps) {
       {item.license_type && <BalanceIcon text={item.license_type} />}
       {item.last_update && <Text>{`Updated on ${item.last_update}`}</Text>}
     </Space>
-  ]
+  )
 }
 
 const LanguageItem = (item: HomieRepoActionsProps) => {
