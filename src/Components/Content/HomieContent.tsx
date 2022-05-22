@@ -1,6 +1,9 @@
 import { Col, Row, Select } from 'antd'
 import { FC } from 'react'
-import { RepositoriesData } from '../../Types/RepositoriesData'
+import {
+  RepositoriesData,
+  RepositoriesItemData
+} from '../../Types/RepositoriesData'
 import { Input } from 'antd'
 import { HomieList } from '../HomieList/HomieList'
 import { HomieListType } from '../../Types/HomieListType'
@@ -9,14 +12,14 @@ import { useParams } from 'react-router-dom'
 const { Option, OptGroup } = Select
 
 interface HomieContentProps {
-  reposData: RepositoriesData[]
+  reposData: RepositoriesData
 }
 
 const manageReposData = (
   { reposData }: HomieContentProps,
   username: string
 ): HomieListType[] => {
-  return reposData.map((repo: RepositoriesData) => {
+  return reposData.items.map((repo: RepositoriesItemData) => {
     return {
       username: username,
       repo_name: repo.full_name,

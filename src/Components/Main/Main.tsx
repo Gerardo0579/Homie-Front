@@ -13,7 +13,7 @@ export const Main: FC = () => {
   const [{ data: userData, loading: loadingUser }, refetchUser] =
     useGetUser(username)
   const [{ data: reposData, loading: loadingRepos }, refetchRepos] =
-    useGetRepos(username)
+    useGetRepos({ username })
 
   useEffect(() => {
     refetchUser()
