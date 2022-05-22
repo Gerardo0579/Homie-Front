@@ -7,6 +7,7 @@ const { Text } = Typography
 interface HomieRepoDescriptionProps {
   is_forked: boolean
   fork_url: string
+  fork_name: string
   description: string
 }
 export const HomieRepoDescription: FC<HomieRepoDescriptionProps> = (item) => {
@@ -14,12 +15,11 @@ export const HomieRepoDescription: FC<HomieRepoDescriptionProps> = (item) => {
     <Space direction="vertical">
       {item.is_forked && (
         <Text>
-          Forked from{' '}
-          <Link to={item.fork_url}>{formatForkUrl(item.fork_url)}</Link>
+          Forked from
+          <Link to={item.fork_url}>{item.fork_name}</Link>
         </Text>
       )}
       <Text>{item.description}</Text>
     </Space>
   )
 }
-const formatForkUrl = (url: string) => url.replace('https://github.com/', '')

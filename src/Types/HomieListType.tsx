@@ -14,4 +14,5 @@ export interface HomieListType {
   forks_url: string
   license_type: string
   last_update: string
+  username: string
 }
