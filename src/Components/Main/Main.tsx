@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom'
 import useGetUser from '../../Hooks/useGetUser/useGetUser'
 import { HomieHeader } from '../Header/HomieHeader'
 import { HomieSider } from '../Sider/HomieSider'
-import { HomieContent } from '../Content/HomieContent'
 import { HomieFooter } from '../Footer/Footer'
 import { StoreRepos } from '../../Stores/StoreRepos'
+import HomieContent from '../Content/HomieContent'
 
 export const StoreContext = createContext<StoreRepos | null>(null)
 

@@ -1,10 +1,11 @@
 import { Col, Input, Row, Select } from 'antd'
 import { FC, useContext } from 'react'
 import { StoreContext } from '../../Main/Main'
+import { observer } from 'mobx-react'
 
 const { Option, OptGroup } = Select
 
-export const HomieRepoSearchBar: FC = () => {
+const HomieRepoSearchBar: FC = () => {
   return (
     <Row gutter={16}>
       <Col span={12}>{SearchInputField()}</Col>
@@ -19,6 +20,7 @@ const SearchInputField = () => {
   const store = useContext(StoreContext)
   return (
     <Input
+      allowClear
       placeholder="Find a repository..."
       value={store?._searchRepoTextInput}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -47,7 +49,11 @@ const SelectTypeInput = () => {
       allowClear>
       <OptGroup label="Select type">
         {types.map((type) => {
-          return <Option value={type}>{type}</Option>
+          return (
+            <Option key={type} value={type}>
+              {type}
+            </Option>
+          )
         })}
       </OptGroup>
     </Select>
@@ -56,9 +62,9 @@ const SelectTypeInput = () => {
 
 const SelectLanguageInput = () => {
   const store = useContext(StoreContext)
-  const languages: string[] | undefined = store?._reposList?.map(
-    (item) => item.language
-  )
+  const languages: string[] | undefined = store?._reposList
+    ?.map((item) => item.language)
+    .filter((v, i, a) => a.indexOf(v) === i)
   return (
     <Select
       style={{ width: '100%' }}
@@ -68,7 +74,11 @@ const SelectLanguageInput = () => {
       allowClear>
       <OptGroup label="Select language">
         {languages?.map((lang) => {
-          return <Option value={lang}>{lang}</Option>
+          return (
+            <Option key={lang} value={lang}>
+              {lang}
+            </Option>
+          )
         })}
       </OptGroup>
     </Select>
@@ -88,9 +98,15 @@ const SelectSortInput = () => {
       allowClear>
       <OptGroup label="Select order">
         {sorts.map((sort) => {
-          return <Option value={sort}>{sort}</Option>
+          return (
+            <Option key={sort} value={sort}>
+              {sort}
+            </Option>
+          )
         })}
       </OptGroup>
     </Select>
   )
 }
+
+export default observer(HomieRepoSearchBar)

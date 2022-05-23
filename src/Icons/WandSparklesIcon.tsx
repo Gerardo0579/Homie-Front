@@ -6,7 +6,7 @@ export const WandSparklesIcon: FC<IconProps> = ({ text }) => {
   return (
     <HomieIcon
       icon={faWandSparkles}
-      key="fa WandSparfaWandSparkles icon"
+      keyIcon="fa WandSparfaWandSparkles icon"
       text={text}
     />
   )

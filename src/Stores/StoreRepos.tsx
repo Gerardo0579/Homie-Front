@@ -11,8 +11,11 @@ export class StoreRepos {
   _selectTypeInput: string = ''
   _selectLanguageInput: string = ''
   _selectSortInput: string = ''
+  _totalPages: number = 1
+  _currentPage: number = 1
 
   constructor() {
+    this._searchRepoTextInput = ''
     makeAutoObservable(this)
   }
 
@@ -61,5 +64,13 @@ export class StoreRepos {
 
   _updateSelectSortInput = (value: string) => {
     this._selectSortInput = value
+  }
+  _updateTotalPages = (totalRepos: number) => {
+    const extraPage = totalRepos % 30 > 0 ? 1 : 0
+    this._totalPages = totalRepos / 30 + extraPage
+  }
+
+  _updateCurrentPage = (page: number) => {
+    this._currentPage = page
   }
 }

@@ -1,5 +1,6 @@
 export interface RepositoryData {
   id: number
+  fork: boolean
   license: {
     key: string
     name: string

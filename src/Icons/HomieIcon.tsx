@@ -6,14 +6,18 @@ import React, { FC } from 'react'
 interface HomieIconProps {
   icon: IconProp
   text?: string | number
-  key: string
+  keyIcon: string
 }
 
 export interface IconProps {
   text?: string | number
 }
 
-export const HomieIcon: FC<HomieIconProps> = ({ icon, key, text = '' }) => (
+export const HomieIcon: FC<HomieIconProps> = ({
+  icon,
+  keyIcon: key,
+  text = ''
+}) => (
   <Space key={key}>
     <FontAwesomeIcon icon={icon} />
     {text}

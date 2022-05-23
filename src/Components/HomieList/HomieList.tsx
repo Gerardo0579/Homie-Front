@@ -5,14 +5,10 @@ import {
   Col,
   Divider,
   Dropdown,
-  Form,
-  Input,
-  Modal,
   Row,
   Space
 } from 'antd'
 import { FC, ReactNode, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import useGetRepoData from '../../Hooks/useGetRepoData/useGetRepoData'
 import { CubesIcon } from '../../Icons/CubesIcon'
 import { DownArrowIcon } from '../../Icons/DownArrowIcon'
@@ -23,10 +19,10 @@ import { WandSparklesIcon } from '../../Icons/WandSparklesIcon'
 import { XMarkIcon } from '../../Icons/XMarkIcon'
 import { HomieListType } from '../../Types/HomieListType'
 import { RepositoryData } from '../../Types/RepositoryData'
-import { HomieBadge } from '../Badge/HomieBadge'
 import { HomieRepoDescription } from '../Content/ReposList/HomieRepoDescription'
 import { HomieRepoHeader } from '../Content/ReposList/HomieRepoHeader'
 import { HomieRepoActions } from '../Content/ReposList/HomiRepoActions'
+import { HomieListModal } from './HomieListModal'
 
 interface HomieListProps {
   items: HomieListType[]
@@ -44,6 +40,15 @@ export const HomieList: FC<HomieListProps> = ({ items }) => {
           </div>
         )
       })}
+
+      <Row style={{ marginTop: '2em', marginBottom: '2em' }} justify="center">
+        <Col>
+          <Button>Previos</Button>
+        </Col>
+        <Col>
+          <Button>Next</Button>
+        </Col>
+      </Row>
     </Space>
   )
 }
@@ -92,8 +97,8 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
         ]}
         style={{ width: 300 }}>
         <Space direction="vertical">
-          {checks.map((check) => {
-            return <Checkbox>{check}</Checkbox>
+          {checks.map((check, i) => {
+            return <Checkbox key={`check_${i}`}>{check}</Checkbox>
           })}
         </Space>
       </Card>
@@ -107,8 +112,8 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
   const { data, loading }: { data?: RepositoryData; loading?: boolean } = values
 
   useEffect(() => {
-    if (item.is_forked) refetchRepoData()
-  }, [refetchRepoData])
+    refetchRepoData()
+  }, [item.is_forked, refetchRepoData])
 
   return (
     <>
@@ -121,7 +126,7 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
               type={item.type}
             />
             <HomieRepoDescription
-              is_forked={item.is_forked}
+              is_forked={data?.fork || false}
               fork_name={data?.parent?.full_name}
               fork_url={data?.parent?.url}
               description={item.description}
@@ -156,42 +161,10 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
           </Dropdown.Button>
         </Col>
       </Row>
-      <Modal
-        title="Create list"
-        visible={isModalVisible}
-        onCancel={handleCancel}
-        footer={null}>
-        <>
-          <Form
-            name="normal_login"
-            className="login-form"
-            initialValues={{ remember: true }}>
-            <Form.Item name="listName">
-              <Input placeholder="Name this list" />
-            </Form.Item>
-            <Form.Item name="description">
-              <Input.TextArea placeholder="Write a description" />
-            </Form.Item>
-
-            <Form.Item>
-              <Button type="primary" block>
-                Create
-              </Button>
-              Tip: Sorry, original tip doesn't work here
-            </Form.Item>
-          </Form>
-          <Divider />
-          <Space>
-            <HomieBadge content="Beta" />
-            <div>
-              Lists are currently in beta.
-              <Link to="https://github.com/github/feedback/discussions/categories/lists-feedback">
-                Share feedback and report bugs.
-              </Link>
-            </div>
-          </Space>
-        </>
-      </Modal>
+      <HomieListModal
+        handleCancel={handleCancel}
+        isModalVisible={isModalVisible}
+      />
     </>
   )
 }

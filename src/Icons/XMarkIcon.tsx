@@ -3,5 +3,5 @@ import { FC } from 'react'
 import { HomieIcon, IconProps } from './HomieIcon'
 
 export const XMarkIcon: FC<IconProps> = ({ text }) => {
-  return <HomieIcon icon={faXmark} key="fa Xmark icon" text={text} />
+  return <HomieIcon icon={faXmark} keyIcon="fa Xmark icon" text={text} />
 }

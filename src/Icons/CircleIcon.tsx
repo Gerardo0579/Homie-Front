@@ -3,5 +3,5 @@ import { FC } from 'react'
 import { HomieIcon, IconProps } from './HomieIcon'
 
 export const CircleIcon: FC<IconProps> = ({ text }) => {
-  return <HomieIcon icon={faCircle} key="fa Circle icon" text={text} />
+  return <HomieIcon icon={faCircle} keyIcon="fa Circle icon" text={text} />
 }
