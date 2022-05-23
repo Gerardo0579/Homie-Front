@@ -1,4 +1,3 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
   Button,
   Card,
@@ -8,7 +7,6 @@ import {
   Dropdown,
   Form,
   Input,
-  Menu,
   Modal,
   Row,
   Space
@@ -32,19 +30,18 @@ import { HomieRepoActions } from '../Content/ReposList/HomiRepoActions'
 
 interface HomieListProps {
   items: HomieListType[]
-  pageSize: number
 }
 
-export const HomieList: FC<HomieListProps> = ({ items, pageSize }) => {
+export const HomieList: FC<HomieListProps> = ({ items }) => {
   return (
     <Space direction="vertical">
       <Divider />
-      {items.map((item) => {
+      {items?.map((item) => {
         return (
-          <>
+          <div key={item.repo_name}>
             <HomieListItem item={item} />
             <Divider />
-          </>
+          </div>
         )
       })}
     </Space>

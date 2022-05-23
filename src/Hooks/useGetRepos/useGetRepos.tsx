@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { StoreContext } from '../../Components/Main/Main'
 import { RequestParamsProps } from '../../Types/RequestParamProps'
 import useManualRequest from '../Fetch/useManualRequest'
 
@@ -26,6 +28,7 @@ const useGetRepos = ({
   params = DEFAULT_REQUEST,
   username
 }: UseGetReposProps) => {
+  const store = useContext(StoreContext)
   const searchTerm = params.search || ''
   const paramsRequest: RequestParamsProps = {
     q: configureQSearch(searchTerm, username),
@@ -35,7 +38,13 @@ const useGetRepos = ({
     page: params.page
   }
 
-  return useManualRequest(BASE_URL, paramsRequest)
+  const [{ data, loading, error }, refetch] = useManualRequest(
+    BASE_URL,
+    paramsRequest
+  )
+
+  store?._updateReposList(data, username)
+  return [data, loading, error, refetch]
 }
 
 const configureQSearch = (search: string, username: string) =>
