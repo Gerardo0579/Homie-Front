@@ -5,10 +5,10 @@ import useGetUser from '../../Hooks/useGetUser/useGetUser'
 import { HomieHeader } from '../Header/HomieHeader'
 import { HomieSider } from '../Sider/HomieSider'
 import { HomieFooter } from '../Footer/Footer'
-import { StoreRepos } from '../../Stores/StoreRepos'
 import HomieContent from '../Content/HomieContent'
+import { MainStore } from '../../Stores/MainStore'
 
-export const StoreContext = createContext<StoreRepos | null>(null)
+export const StoreContext = createContext<MainStore | null>(null)
 
 export const Main: FC = () => {
   const { username } = useParams<{ username: string }>()
@@ -20,7 +20,7 @@ export const Main: FC = () => {
   }, [username, refetchUser])
 
   return (
-    <StoreContext.Provider value={new StoreRepos()}>
+    <StoreContext.Provider value={new MainStore()}>
       <Row>
         <Col span={12} push={8}>
           <HomieHeader />

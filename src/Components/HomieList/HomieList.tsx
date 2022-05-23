@@ -1,34 +1,27 @@
-import {
-  Button,
-  Card,
-  Checkbox,
-  Col,
-  Divider,
-  Dropdown,
-  Row,
-  Space
-} from 'antd'
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { Button, Col, Divider, Dropdown, Row, Space } from 'antd'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 import useGetRepoData from '../../Hooks/useGetRepoData/useGetRepoData'
 import { CubesIcon } from '../../Icons/CubesIcon'
 import { DownArrowIcon } from '../../Icons/DownArrowIcon'
-import { PlusIcon } from '../../Icons/PlusIcon'
 import { RocketIcon } from '../../Icons/RocketIcon'
 import { StarIcon } from '../../Icons/StarIcon'
 import { WandSparklesIcon } from '../../Icons/WandSparklesIcon'
-import { XMarkIcon } from '../../Icons/XMarkIcon'
 import { HomieListType } from '../../Types/HomieListType'
 import { RepositoryData } from '../../Types/RepositoryData'
 import { HomieRepoDescription } from '../Content/ReposList/HomieRepoDescription'
 import { HomieRepoHeader } from '../Content/ReposList/HomieRepoHeader'
 import { HomieRepoActions } from '../Content/ReposList/HomiRepoActions'
-import { HomieListModal } from './HomieListModal'
+import { HomieRepoListMenu } from './HomieRepoListMenu'
+import HomieListModal from './HomieListModal'
+import { observer } from 'mobx-react'
+import { MainStore } from '../../Stores/MainStore'
+import { StoreContext } from '../Main/Main'
 
 interface HomieListProps {
   items: HomieListType[]
 }
 
-export const HomieList: FC<HomieListProps> = ({ items }) => {
+const HomieList: FC<HomieListProps> = ({ items }) => {
   return (
     <Space direction="vertical">
       <Divider />
@@ -52,6 +45,7 @@ export const HomieList: FC<HomieListProps> = ({ items }) => {
     </Space>
   )
 }
+export default observer(HomieList)
 
 interface HomieListItemProps {
   item: HomieListType
@@ -70,40 +64,9 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
   const handleCancel = () => {
     setIsModalVisible(false)
   }
-  const checks: ReactNode[] = [
-    <CubesIcon text={'Future ideas'} />,
-    <RocketIcon text="My stack" />,
-    <WandSparklesIcon text="Inspiration" />
-  ]
-  const menu = (UpdateDropdownVisible: () => void, showModal: () => void) => (
-    <>
-      <Card
-        title="Suggested lists"
-        extra={
-          <Button type="link" onClick={() => UpdateDropdownVisible()}>
-            <XMarkIcon />
-          </Button>
-        }
-        actions={[
-          <Button
-            onClick={() => {
-              UpdateDropdownVisible()
-              showModal()
-            }}
-            type="text"
-            block>
-            <PlusIcon text="Create list" />
-          </Button>
-        ]}
-        style={{ width: 300 }}>
-        <Space direction="vertical">
-          {checks.map((check, i) => {
-            return <Checkbox key={`check_${i}`}>{check}</Checkbox>
-          })}
-        </Space>
-      </Card>
-    </>
-  )
+
+  const { _storeLists: storeLists }: MainStore = useContext(StoreContext)!
+  const repo = storeLists._reposListGet(item.id)
 
   const UpdateDropdownVisible = () => {
     SetDropdownVisible(!dropdownVisible)
@@ -150,7 +113,9 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
             onClick={() => SetStarClicked(!starClicked)}
             visible={dropdownVisible}
             onVisibleChange={UpdateDropdownVisible}
-            overlay={menu(UpdateDropdownVisible, showModal)}
+            overlay={() =>
+              HomieRepoListMenu(repo?.lists, UpdateDropdownVisible, showModal)
+            }
             trigger={['click']}
             icon={<DownArrowIcon />}>
             {starClicked ? (
@@ -162,6 +127,7 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
         </Col>
       </Row>
       <HomieListModal
+        repoId={item.id}
         handleCancel={handleCancel}
         isModalVisible={isModalVisible}
       />

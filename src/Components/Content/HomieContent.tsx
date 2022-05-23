@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect } from 'react'
-import { HomieList } from '../HomieList/HomieList'
+import HomieList from '../HomieList/HomieList'
 import { useParams } from 'react-router-dom'
 import useGetRepos from '../../Hooks/useGetRepos/useGetRepos'
 import { StoreContext } from '../Main/Main'
@@ -10,9 +10,11 @@ import {
   UseGetReposParams
 } from '../../Hooks/useGetRepos/configURLGetRepos'
 import { observer } from 'mobx-react'
+import { MainStore } from '../../Stores/MainStore'
 
 const HomieContent: FC = () => {
-  const store = useContext(StoreContext)
+  const { _storeRepos: storeRepos, _storeLists: storeLists }: MainStore =
+    useContext(StoreContext)!
 
   const { username } = useParams<{ username: string }>()
   const [data, loading, error, refetchRepos] = useGetRepos(
@@ -24,17 +26,18 @@ const HomieContent: FC = () => {
   }, [refetchRepos, username])
 
   useEffect(() => {
-    store?._updateReposList(data, username)
-    store?._updateTotalPages(data?.total_count)
-  }, [data, store])
+    storeRepos?._updateReposList(data, username)
+    storeRepos?._updateTotalPages(data?.total_count)
+    if (data) storeLists?._createLists(data)
+  }, [data, storeRepos])
 
   useEffect(() => {
     const paramsObj: UseGetReposParams = {
-      search: store?._searchRepoTextInput || undefined,
-      type: store?._selectTypeInput || undefined,
-      lang: store?._selectLanguageInput || undefined,
-      sort: store?._selectSortInput || undefined,
-      page: store?._currentPage || 1
+      search: storeRepos?._searchRepoTextInput || undefined,
+      type: storeRepos?._selectTypeInput || undefined,
+      lang: storeRepos?._selectLanguageInput || undefined,
+      sort: storeRepos?._selectSortInput || undefined,
+      page: storeRepos?._currentPage || 1
     }
 
     refetchRepos({
@@ -42,18 +45,18 @@ const HomieContent: FC = () => {
     })
   }, [
     refetchRepos,
-    store?._searchRepoTextInput,
-    store?._selectLanguageInput,
-    store?._selectSortInput,
-    store?._selectTypeInput
+    storeRepos?._searchRepoTextInput,
+    storeRepos?._selectLanguageInput,
+    storeRepos?._selectSortInput,
+    storeRepos?._selectTypeInput
   ])
 
   return (
     <>
-      {store?._reposList_updated && (
+      {storeRepos._reposList_updated() && (
         <>
           <HomieRepoSearchBar />
-          <HomieList items={store._reposList} />
+          <HomieList items={storeRepos._reposList} />
         </>
       )}
 

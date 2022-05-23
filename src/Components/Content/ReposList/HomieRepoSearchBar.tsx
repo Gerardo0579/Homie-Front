@@ -2,6 +2,7 @@ import { Col, Input, Row, Select } from 'antd'
 import { FC, useContext } from 'react'
 import { StoreContext } from '../../Main/Main'
 import { observer } from 'mobx-react'
+import { MainStore } from '../../../Stores/MainStore'
 
 const { Option, OptGroup } = Select
 
@@ -17,7 +18,7 @@ const HomieRepoSearchBar: FC = () => {
 }
 
 const SearchInputField = () => {
-  const store = useContext(StoreContext)
+  const { _storeRepos: store }: MainStore = useContext(StoreContext)!
   return (
     <Input
       allowClear
@@ -31,7 +32,7 @@ const SearchInputField = () => {
 }
 
 const SelectTypeInput = () => {
-  const store = useContext(StoreContext)
+  const { _storeRepos: store }: MainStore = useContext(StoreContext)!
   const types: string[] = [
     'All',
     'Sources',
@@ -61,7 +62,7 @@ const SelectTypeInput = () => {
 }
 
 const SelectLanguageInput = () => {
-  const store = useContext(StoreContext)
+  const { _storeRepos: store }: MainStore = useContext(StoreContext)!
   const languages: string[] | undefined = store?._reposList
     ?.map((item) => item.language)
     .filter((v, i, a) => a.indexOf(v) === i)
@@ -86,7 +87,7 @@ const SelectLanguageInput = () => {
 }
 
 const SelectSortInput = () => {
-  const store = useContext(StoreContext)
+  const { _storeRepos: store }: MainStore = useContext(StoreContext)!
   const sorts: string[] = ['start', 'forks', 'updated']
 
   return (

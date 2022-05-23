@@ -5,7 +5,7 @@ import {
   RepositoriesItemData
 } from '../Types/RepositoriesData'
 
-export class StoreRepos {
+class StoreRepos {
   _reposList: HomieListType[] = []
   _searchRepoTextInput: string = ''
   _selectTypeInput: string = ''
@@ -15,7 +15,6 @@ export class StoreRepos {
   _currentPage: number = 1
 
   constructor() {
-    this._searchRepoTextInput = ''
     makeAutoObservable(this)
   }
 
@@ -26,6 +25,7 @@ export class StoreRepos {
   _updateReposList = (reposRawData: RepositoriesData, username: string) => {
     this._reposList = reposRawData?.items.map((repo: RepositoriesItemData) => {
       return {
+        id: repo.id,
         username: username,
         repo_name: repo.full_name,
         repo_url: repo.url,
@@ -74,3 +74,5 @@ export class StoreRepos {
     this._currentPage = page
   }
 }
+
+export default StoreRepos
