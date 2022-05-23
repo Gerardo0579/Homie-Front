@@ -19,33 +19,29 @@ const HomieRepoSearchBar: FC = () => {
 
 const SearchInputField = () => {
   const { _storeRepos: store }: MainStore = useContext(StoreContext)!
+  const handleOnchage = (event: React.ChangeEvent<HTMLInputElement>) =>
+    store?._updateSearchRepoTextInput(event.target.value)
+
   return (
     <Input
       allowClear
       placeholder="Find a repository..."
       value={store?._searchRepoTextInput}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-        store?._updateSearchRepoTextInput(event.target.value)
-      }
+      onChange={(e) => handleOnchage(e)}
     />
   )
 }
 
 const SelectTypeInput = () => {
   const { _storeRepos: store }: MainStore = useContext(StoreContext)!
-  const types: string[] = [
-    'All',
-    'Sources',
-    'Forks',
-    'Archived',
-    'Mirrors',
-    'Templates'
-  ]
+  const types: string[] = ['All', 'Forks', 'Archived', 'Mirrors']
+  const handleOnchage = (value: string) => store?._updateSelectTypeInput(value)
+
   return (
     <Select
       style={{ width: '100%' }}
       value={store?._selectTypeInput}
-      onChange={store?._updateSelectTypeInput}
+      onChange={(e) => handleOnchage(e)}
       placeholder="Type"
       allowClear>
       <OptGroup label="Select type">
@@ -88,13 +84,14 @@ const SelectLanguageInput = () => {
 
 const SelectSortInput = () => {
   const { _storeRepos: store }: MainStore = useContext(StoreContext)!
-  const sorts: string[] = ['start', 'forks', 'updated']
+  const sorts: string[] = ['stars', 'forks', 'updated']
+  const handleOnchage = (value: string) => store?._updateSelectSortInput(value)
 
   return (
     <Select
       style={{ width: '100%' }}
       value={store?._selectSortInput}
-      onChange={store?._updateSelectSortInput}
+      onChange={(e) => handleOnchage(e)}
       placeholder="Sort"
       allowClear>
       <OptGroup label="Select order">

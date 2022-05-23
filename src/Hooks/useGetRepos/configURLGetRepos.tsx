@@ -1,3 +1,7 @@
+const REPOS_PER_PAGE: number = process.env.REACT_APP_REPOS_PER_PAGE
+  ? parseInt(process.env.REACT_APP_REPOS_PER_PAGE)
+  : 30
+
 const BASE_URL = 'https://api.github.com/search/repositories'
 const Q_BASE = '#search# user:#username# in:description in:name'
 
@@ -32,10 +36,38 @@ const configureQSearch = (search: string, username: string) =>
 
 const formatParams = (params?: UseGetReposParams) => {
   const q = params?.search ? `q=${encodeURIComponent(params.search)}` : ''
-  const type = params?.type !== undefined ? `&type=${params.type}` : ''
-  const lang = params?.lang !== undefined ? `&language=${params.lang}` : ''
-  const sort = params?.sort !== undefined ? `&sort=${params.sort}` : ''
-  const page = params?.page !== undefined ? `&page=${params.page}` : ''
+  const type = encodeType(params?.type)
+  const lang = encodeLang(params?.lang)
+  const sort = encodeSort(params?.sort)
+  const page = encodePage(params?.page)
+  const per_page = encodePerPage()
 
-  return `${q}${type}${lang}${sort}${page}`
+  return `${q}${type}${lang}${sort}${page}${per_page}`
 }
+
+const encodeType = (type: string | undefined) => {
+  switch (type) {
+    case 'All': {
+      return ''
+    }
+    case 'Archived': {
+      return ' archived:true'
+    }
+    case 'Mirrors': {
+      return ' mirror:true'
+    }
+    case 'Forks': {
+      return ' forks:>=1'
+    }
+    default: {
+      return ''
+    }
+  }
+}
+const encodeLang = (lang: string | undefined) =>
+  lang !== undefined ? encodeURIComponent(` language:${lang}`) : ''
+const encodeSort = (sort: string | undefined) =>
+  sort !== undefined ? `&sort=${sort}` : ''
+const encodePage = (page: number | undefined) =>
+  page !== undefined ? `&page=${page}` : ''
+const encodePerPage = () => `&per_page=${REPOS_PER_PAGE}`

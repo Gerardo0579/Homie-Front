@@ -1,57 +1,23 @@
-import { Button, Col, Divider, Dropdown, Row, Space } from 'antd'
-import { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import { Col, Dropdown, Row, Space } from 'antd'
+import { FC, useContext, useEffect, useState } from 'react'
 import useGetRepoData from '../../Hooks/useGetRepoData/useGetRepoData'
-import { CubesIcon } from '../../Icons/CubesIcon'
 import { DownArrowIcon } from '../../Icons/DownArrowIcon'
-import { RocketIcon } from '../../Icons/RocketIcon'
 import { StarIcon } from '../../Icons/StarIcon'
-import { WandSparklesIcon } from '../../Icons/WandSparklesIcon'
 import { HomieListType } from '../../Types/HomieListType'
 import { RepositoryData } from '../../Types/RepositoryData'
-import { HomieRepoDescription } from '../Content/ReposList/HomieRepoDescription'
-import { HomieRepoHeader } from '../Content/ReposList/HomieRepoHeader'
-import { HomieRepoActions } from '../Content/ReposList/HomiRepoActions'
+import { HomieRepoDescription } from '../Content/HomieReposSection/HomieRepoDescription'
+import { HomieRepoHeader } from '../Content/HomieReposSection/HomieRepoHeader'
+import { HomieRepoActions } from '../Content/HomieReposSection/HomiRepoActions'
 import { HomieRepoListMenu } from './HomieRepoListMenu'
 import HomieListModal from './HomieListModal'
-import { observer } from 'mobx-react'
 import { MainStore } from '../../Stores/MainStore'
 import { StoreContext } from '../Main/Main'
-
-interface HomieListProps {
-  items: HomieListType[]
-}
-
-const HomieList: FC<HomieListProps> = ({ items }) => {
-  return (
-    <Space direction="vertical">
-      <Divider />
-      {items?.map((item) => {
-        return (
-          <div key={item.repo_name}>
-            <HomieListItem item={item} />
-            <Divider />
-          </div>
-        )
-      })}
-
-      <Row style={{ marginTop: '2em', marginBottom: '2em' }} justify="center">
-        <Col>
-          <Button>Previos</Button>
-        </Col>
-        <Col>
-          <Button>Next</Button>
-        </Col>
-      </Row>
-    </Space>
-  )
-}
-export default observer(HomieList)
+import { HomieRepoTopics } from '../Content/HomieReposSection/HomiRepoTopics'
 
 interface HomieListItemProps {
   item: HomieListType
 }
-
-const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
+export const HomieReposListItem: FC<HomieListItemProps> = ({ item }) => {
   const [dropdownVisible, SetDropdownVisible] = useState<boolean>(false)
   const [starClicked, SetStarClicked] = useState<boolean>(false)
 
@@ -94,6 +60,7 @@ const HomieListItem: FC<HomieListItemProps> = ({ item }) => {
               fork_url={data?.parent?.url}
               description={item.description}
             />
+            <HomieRepoTopics topics={data?.topics} />
             <HomieRepoActions
               language={item.language}
               language_url={item.language_url}

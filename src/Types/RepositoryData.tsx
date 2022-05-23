@@ -15,4 +15,5 @@ export interface RepositoryData {
     description: string
     url: string
   }
+  topics: string[]
 }

@@ -4,14 +4,14 @@ import { Space } from 'antd'
 import { HomieBadge } from '../../Badge/HomieBadge'
 
 interface HomieRepoTopicsProps {
-  topics: string[]
+  topics?: string[]
 }
 
-export const HomieRepoTopics: FC<HomieRepoTopicsProps> = (topics) => {
+export const HomieRepoTopics: FC<HomieRepoTopicsProps> = ({ topics }) => {
   return (
     <Space>
-      {topics.topics &&
-        topics.topics.map((topic) => {
+      {topics &&
+        topics.map((topic) => {
           return <HomieRepoTopic topic={topic} />
         })}
     </Space>

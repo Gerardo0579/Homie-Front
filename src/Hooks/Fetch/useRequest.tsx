@@ -1,6 +1,8 @@
 import useAxios from 'axios-hooks'
 import { RequestParamsProps } from '../../Types/RequestParamProps'
 
+const GITHUB_API_TOKEN: string = process.env.REACT_APP_GITHUB_API_TOKEN || ''
+
 const useRequest = (
   url: string,
   params?: RequestParamsProps,
@@ -10,7 +12,7 @@ const useRequest = (
     {
       url: url,
       method: 'GET',
-      headers: { authorization: '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' }
+      headers: { authorization: GITHUB_API_TOKEN }
     },
     {
       manual: manualConfig

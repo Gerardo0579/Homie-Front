@@ -1,9 +1,9 @@
 import { FC, useContext, useEffect } from 'react'
-import HomieList from '../HomieList/HomieList'
+import HomieReposList from '../HomieReposList/HomieReposList'
 import { useParams } from 'react-router-dom'
 import useGetRepos from '../../Hooks/useGetRepos/useGetRepos'
 import { StoreContext } from '../Main/Main'
-import HomieRepoSearchBar from './ReposList/HomieRepoSearchBar'
+import HomieRepoSearchBar from './HomieReposSection/HomieRepoSearchBar'
 import { LoadingComponent } from '../HomieLoading/HomieLoading'
 import {
   configURLGetRepos,
@@ -11,6 +11,7 @@ import {
 } from '../../Hooks/useGetRepos/configURLGetRepos'
 import { observer } from 'mobx-react'
 import { MainStore } from '../../Stores/MainStore'
+import { HomieAlert } from '../HomieAlert/HomieAlert'
 
 const HomieContent: FC = () => {
   const { _storeRepos: storeRepos, _storeLists: storeLists }: MainStore =
@@ -45,6 +46,7 @@ const HomieContent: FC = () => {
     })
   }, [
     refetchRepos,
+    storeRepos?._currentPage,
     storeRepos?._searchRepoTextInput,
     storeRepos?._selectLanguageInput,
     storeRepos?._selectSortInput,
@@ -53,10 +55,19 @@ const HomieContent: FC = () => {
 
   return (
     <>
-      {storeRepos._reposList_updated() && (
+      <HomieRepoSearchBar />
+      {!loading && storeRepos._reposList_updated() && (
         <>
-          <HomieRepoSearchBar />
-          <HomieList items={storeRepos._reposList} />
+          <HomieReposList items={storeRepos._reposList} />
+        </>
+      )}
+
+      {!loading && storeRepos._reposList_empty() && (
+        <>
+          <HomieAlert
+            status="warning"
+            message="We did not find any repository"
+          />
         </>
       )}
 
