@@ -10,9 +10,9 @@ class StoreLists {
 
   _createLists = (repos: RepositoriesData) => {
     const basicList: ReposListsItem[] = [
-      { name: 'Future ideas', description: '' },
-      { name: 'My stack', description: '' },
-      { name: 'Inspiration', description: '' }
+      { name: '🔮 Future ideas', description: '' },
+      { name: '🚀 My stack', description: '' },
+      { name: '🌟 Inspiration', description: '' }
     ]
     this._reposLists = repos?.items
       .map((repo) => repo.id)
