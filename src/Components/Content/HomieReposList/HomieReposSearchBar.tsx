@@ -41,25 +41,15 @@ const SelectTypeInput = () => {
   const types: string[] = ['All', 'Forks', 'Archived', 'Mirrors']
   const handleOnchage = (value: string) => store?._updateSelectTypeInput(value)
 
-  return (
-    <Select
-      className={styles.selectInput}
-      style={{ width: '100%' }}
-      value={store?._selectTypeInput}
-      onChange={(e) => handleOnchage(e)}
-      placeholder="Type"
-      allowClear>
-      <OptGroup label="Select type">
-        {types.map((type) => {
-          return (
-            <Option key={type} value={type}>
-              {type}
-            </Option>
-          )
-        })}
-      </OptGroup>
-    </Select>
-  )
+  const selectProp = {
+    value: store?._selectTypeInput,
+    options: types,
+    onChange: handleOnchage,
+    placeholder: 'Type',
+    label: 'Select type'
+  }
+
+  return <SelectBuilder {...selectProp} />
 }
 
 const SelectLanguageInput = () => {
@@ -67,25 +57,16 @@ const SelectLanguageInput = () => {
   const languages: string[] | undefined = store?._reposList
     ?.map((item) => item.language)
     .filter((v, i, a) => a.indexOf(v) === i)
-  return (
-    <Select
-      className={styles.selectInput}
-      style={{ width: '100%' }}
-      value={store?._selectLanguageInput}
-      onChange={store?._updateSelectLanguageInput}
-      placeholder="Language"
-      allowClear>
-      <OptGroup label="Select language">
-        {languages?.map((lang) => {
-          return (
-            <Option key={lang} value={lang}>
-              {lang}
-            </Option>
-          )
-        })}
-      </OptGroup>
-    </Select>
-  )
+
+  const selectProp = {
+    value: store?._selectLanguageInput,
+    options: languages,
+    onChange: store?._updateSelectLanguageInput,
+    placeholder: 'Language',
+    label: 'Select language'
+  }
+
+  return <SelectBuilder {...selectProp} />
 }
 
 const SelectSortInput = () => {
@@ -93,19 +74,44 @@ const SelectSortInput = () => {
   const sorts: string[] = ['stars', 'forks', 'updated']
   const handleOnchage = (value: string) => store?._updateSelectSortInput(value)
 
+  const selectProp = {
+    value: store?._selectSortInput,
+    options: sorts,
+    onChange: handleOnchage,
+    placeholder: 'Sort',
+    label: 'Select order'
+  }
+
+  return <SelectBuilder {...selectProp} />
+}
+
+interface SelectBuilderProps {
+  value: string | undefined
+  options: string[]
+  onChange: (value: string) => void
+  placeholder: string
+  label: string
+}
+const SelectBuilder: FC<SelectBuilderProps> = ({
+  value,
+  options,
+  onChange,
+  placeholder,
+  label
+}) => {
   return (
     <Select
       className={styles.selectInput}
       style={{ width: '100%' }}
-      value={store?._selectSortInput}
-      onChange={(e) => handleOnchage(e)}
-      placeholder="Sort"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
       allowClear>
-      <OptGroup label="Select order">
-        {sorts.map((sort) => {
+      <OptGroup label={label}>
+        {options.map((opt) => {
           return (
-            <Option key={sort} value={sort}>
-              {sort}
+            <Option key={opt} value={opt}>
+              {opt}
             </Option>
           )
         })}

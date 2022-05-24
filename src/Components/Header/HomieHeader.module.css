@@ -1,0 +1,19 @@
+.menuBar {
+    background-color: transparent;
+    border-bottom: none !important;
+}
+
+.menuItem {
+    font-weight: 500 !important;
+}
+
+.menuItem:hover {
+    background-color: #ededed !important;
+    border-radius: 6px;
+}
+
+@media (max-width: 1030px) {
+    .menuBar {
+        border-bottom: 1px solid #d0d7de !important;
+    }
+}

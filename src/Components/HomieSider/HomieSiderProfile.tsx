@@ -22,22 +22,23 @@ export const HomieSiderProfile: FC<HomieSiderProfileProps> = ({ userData }) => {
     else SetFollowText('Follow')
   }
   return (
-    <>
+    <div className={styles.bioContent}>
       <Image
         className={styles.avatarImg}
         src={userData.avatar_url}
         fallback={FallBackImg}
       />
-      <Space direction="vertical">
+      <Space size={5} className={styles.userName} direction="vertical">
         <Text className={styles.title1}>{userData.name}</Text>
         <Text className={styles.title2}>{userData.login}</Text>
       </Space>
-      <Button onClick={onClickFollow} block>
+      <Button className={styles.followButton} onClick={onClickFollow} block>
         {followText}
       </Button>
       <Text>{userData.bio}</Text>
-      <Space direction="horizontal">
+      <Space className={styles.userFollowInfo} size={5} direction="horizontal">
         <Link
+          className={styles.userBioLink}
           to={{ pathname: userData.followers_url }}
           type="text"
           target="_blank">
@@ -46,23 +47,29 @@ export const HomieSiderProfile: FC<HomieSiderProfileProps> = ({ userData }) => {
         </Link>
         <LineOutlined />
         <Link
+          className={styles.userBioLink}
           to={{ pathname: userData.following_url }}
           type="text"
           target="_blank">{`${userData.following} following`}</Link>
       </Space>
       <Space direction="vertical">
         <Link
+          className={styles.userBioLink}
           to={{ pathname: userData.organizations_url }}
           type="text"
           target="_blank">
           <BuildingIcon text={userData.company} />
         </Link>
         <LocationIcon text={userData.location} />
-        <Link to={{ pathname: userData.blog }} type="text" target="_blank">
+        <Link
+          className={styles.userBioLink}
+          to={{ pathname: userData.blog }}
+          type="text"
+          target="_blank">
           <BuildingIcon text={userData.blog} />
         </Link>
       </Space>
       <Divider />
-    </>
+    </div>
   )
 }

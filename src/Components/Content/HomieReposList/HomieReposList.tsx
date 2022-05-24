@@ -1,4 +1,4 @@
-import { Button, Col, Row } from 'antd'
+import { Row } from 'antd'
 import { FC, useContext } from 'react'
 import { HomieListType } from '../../../Types/HomieListType'
 import { observer } from 'mobx-react'
@@ -6,19 +6,7 @@ import { HomieReposListItem } from './Item/HomieReposListItem'
 import { MainStore } from '../../../Stores/MainStore'
 import { StoreContext } from '../../Main/Main'
 import { HomieDivider as Divider } from '../../HomieDivider/HomieDivider'
-
-interface PaginationButtonProps {
-  clickEvent: () => void
-  disable: boolean
-  content: string
-}
-const PaginationButton: FC<PaginationButtonProps> = (props) => {
-  return (
-    <Button onClick={props.clickEvent} disabled={props.disable}>
-      {props.content}
-    </Button>
-  )
-}
+import { HomiePagination } from './HomiePagination'
 
 interface HomieListProps {
   items: HomieListType[]
@@ -26,28 +14,12 @@ interface HomieListProps {
 
 const HomieReposList: FC<HomieListProps> = ({ items }) => {
   const { _storeRepos: storeRepos }: MainStore = useContext(StoreContext)!
-
-  const paginationButtons = [
-    {
-      clickEvent: () => {
-        storeRepos._updateCurrentPage(storeRepos._currentPage - 1)
-      },
-      disable: storeRepos._currentPage === 1,
-      content: 'Previous'
-    },
-    {
-      clickEvent: () => {
-        storeRepos._updateCurrentPage(storeRepos._currentPage + 1)
-      },
-      disable: storeRepos._currentPage === storeRepos._totalPages,
-      content: 'Next'
-    }
-  ]
+  const paginationInfo = `Page ${storeRepos._currentPage} of ${storeRepos._totalPages} (5 of ${storeRepos._totalResults} results in total)`
 
   return (
     <>
       <Divider />
-      {`${storeRepos._totalResults} results over ${storeRepos._totalPages} pages. Page ${storeRepos._currentPage}`}
+      {paginationInfo}
       <Divider />
       {items?.map((item) => {
         return (
@@ -59,17 +31,7 @@ const HomieReposList: FC<HomieListProps> = ({ items }) => {
       })}
 
       <Row style={{ marginTop: '5em', marginBottom: '2em' }} justify="center">
-        {paginationButtons.map((btn) => {
-          return (
-            <Col>
-              <PaginationButton
-                clickEvent={btn.clickEvent}
-                disable={btn.disable}
-                content={btn.content}
-              />
-            </Col>
-          )
-        })}
+        <HomiePagination />
       </Row>
     </>
   )

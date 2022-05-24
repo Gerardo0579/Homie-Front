@@ -39,7 +39,7 @@ export const HomieReposListItem: FC<HomieListItemProps> = ({ item }) => {
     SetDropdownVisible(!dropdownVisible)
   }
   const [values, refetchRepoData] = useGetRepoData(item.repo_name)
-  const { data, loading }: { data?: RepositoryData; loading?: boolean } = values
+  const { data }: { data?: RepositoryData; loading?: boolean } = values
 
   useEffect(() => {
     refetchRepoData()

@@ -5,6 +5,7 @@ import { HomieBadge } from '../../../../Badge/HomieBadge'
 import { observer } from 'mobx-react'
 import { MainStore } from '../../../../../Stores/MainStore'
 import { StoreContext } from '../../../../Main/Main'
+import styles from '../HomieReposListItem.module.css'
 
 const GITHUB_URL =
   'https://github.com/github/feedback/discussions/categories/lists-feedback'
@@ -40,6 +41,7 @@ const HomieRepoItemModal: FC<HomieRepoItemModalProps> = ({
 
   return (
     <Modal
+      className={styles.itemModal}
       title="Create list"
       visible={isModalVisible}
       onCancel={handleCancel}
@@ -47,23 +49,30 @@ const HomieRepoItemModal: FC<HomieRepoItemModalProps> = ({
       destroyOnClose>
       <>
         <Form name="normal_login" className="login-form">
-          <Form.Item name="listName">
+          <Form.Item
+            label="Create a list to organize your starred repositories."
+            className={styles.formTitleInfo}
+          />
+          <Form.Item name="listName" className={styles.formItem}>
             <Input
+              className={styles.formInput}
               value={name}
-              placeholder="Name this list"
+              placeholder="🌟 Name this list"
               onChange={handleChangeName}
             />
           </Form.Item>
-          <Form.Item name="description">
+          <Form.Item name="description" className={styles.formItem}>
             <Input.TextArea
+              className={styles.formInput}
               value={description}
               placeholder="Write a description"
               onChange={handleChangeDescription}
             />
           </Form.Item>
-
           <Form.Item>
             <Button
+              className={styles.formBtn}
+              disabled={name && description ? false : true}
               onClick={() => {
                 addListToStore()
                 handleCancel()
@@ -72,10 +81,12 @@ const HomieRepoItemModal: FC<HomieRepoItemModalProps> = ({
               block>
               Create
             </Button>
-            Tip: Sorry, original tip doesn't work here
+            <Form.Item
+              label="Tip: Sorry, original tip doesn't work here"
+              className={styles.formInfo}
+            />
           </Form.Item>
         </Form>
-        <Divider />
         <Space>
           <HomieBadge
             borderColor="#2da44e"
