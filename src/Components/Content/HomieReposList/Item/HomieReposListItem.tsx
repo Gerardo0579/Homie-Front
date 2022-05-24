@@ -1,18 +1,19 @@
 import { Col, Dropdown, Row, Space } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
-import useGetRepoData from '../../Hooks/useGetRepoData/useGetRepoData'
-import { DownArrowIcon } from '../../Icons/DownArrowIcon'
-import { StarIcon } from '../../Icons/StarIcon'
-import { HomieListType } from '../../Types/HomieListType'
-import { RepositoryData } from '../../Types/RepositoryData'
-import { HomieRepoDescription } from '../Content/HomieReposSection/HomieRepoDescription'
-import { HomieRepoHeader } from '../Content/HomieReposSection/HomieRepoHeader'
-import { HomieRepoActions } from '../Content/HomieReposSection/HomiRepoActions'
-import { HomieRepoListMenu } from './HomieRepoListMenu'
-import HomieListModal from './HomieListModal'
-import { MainStore } from '../../Stores/MainStore'
-import { StoreContext } from '../Main/Main'
-import { HomieRepoTopics } from '../Content/HomieReposSection/HomiRepoTopics'
+import useGetRepoData from '../../../../Hooks/useGetRepoData/useGetRepoData'
+import { DownArrowIcon } from '../../../../Icons/DownArrowIcon'
+import { StarIcon } from '../../../../Icons/StarIcon'
+import { HomieListType } from '../../../../Types/HomieListType'
+import { RepositoryData } from '../../../../Types/RepositoryData'
+import { HomieRepoItemDescription } from './HomieRepoItemSection/HomieRepoItemDescription'
+import { HomieRepoItemHeader } from './HomieRepoItemSection/HomieRepoItemHeader'
+import { HomieRepoItemActions } from './HomieRepoItemSection/HomieRepoItemActions'
+import { HomieRepoItemMenu } from './HomieRepoItemSection/HomieRepoItemMenu'
+import HomieRepoItemModal from './HomieRepoItemSection/HomieRepoItemModal'
+import { MainStore } from '../../../../Stores/MainStore'
+import { StoreContext } from '../../../Main/Main'
+import { HomieRepoItemTopics } from './HomieRepoItemSection/HomieRepoItemTopics'
+import styles from './HomieReposListItem.module.css'
 
 interface HomieListItemProps {
   item: HomieListType
@@ -45,23 +46,23 @@ export const HomieReposListItem: FC<HomieListItemProps> = ({ item }) => {
   }, [item.is_forked, refetchRepoData])
 
   return (
-    <>
+    <div className={styles.itemWrapper}>
       <Row>
         <Col span={18}>
-          <Space direction="vertical">
-            <HomieRepoHeader
+          <Space size={10} direction="vertical">
+            <HomieRepoItemHeader
               repo_name={item.repo_name}
               repo_url={item.repo_url}
               type={item.type}
             />
-            <HomieRepoDescription
+            <HomieRepoItemDescription
               is_forked={data?.fork || false}
               fork_name={data?.parent?.full_name}
               fork_url={data?.parent?.url}
               description={item.description}
             />
-            <HomieRepoTopics topics={data?.topics} />
-            <HomieRepoActions
+            <HomieRepoItemTopics topics={data?.topics} />
+            <HomieRepoItemActions
               language={item.language}
               language_url={item.language_url}
               stars={item.stars}
@@ -76,12 +77,13 @@ export const HomieReposListItem: FC<HomieListItemProps> = ({ item }) => {
         </Col>
         <Col span={6}>
           <Dropdown.Button
+            className={styles.starButton}
             style={{ float: 'right' }}
             onClick={() => SetStarClicked(!starClicked)}
             visible={dropdownVisible}
             onVisibleChange={UpdateDropdownVisible}
             overlay={() =>
-              HomieRepoListMenu(repo?.lists, UpdateDropdownVisible, showModal)
+              HomieRepoItemMenu(repo?.lists, UpdateDropdownVisible, showModal)
             }
             trigger={['click']}
             icon={<DownArrowIcon />}>
@@ -93,11 +95,11 @@ export const HomieReposListItem: FC<HomieListItemProps> = ({ item }) => {
           </Dropdown.Button>
         </Col>
       </Row>
-      <HomieListModal
+      <HomieRepoItemModal
         repoId={item.id}
         handleCancel={handleCancel}
         isModalVisible={isModalVisible}
       />
-    </>
+    </div>
   )
 }

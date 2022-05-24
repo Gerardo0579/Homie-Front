@@ -1,6 +1,7 @@
 import { Space, Typography } from 'antd'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
+import styles from '../HomieReposListItem.module.css'
 
 const { Text } = Typography
 
@@ -10,7 +11,7 @@ interface HomieRepoDescriptionProps {
   fork_name?: string
   description: string
 }
-export const HomieRepoDescription: FC<HomieRepoDescriptionProps> = ({
+export const HomieRepoItemDescription: FC<HomieRepoDescriptionProps> = ({
   is_forked,
   fork_url = '',
   fork_name = '',
@@ -19,11 +20,14 @@ export const HomieRepoDescription: FC<HomieRepoDescriptionProps> = ({
   return (
     <Space direction="vertical">
       {is_forked && fork_name && (
-        <Text>
-          Forked from <Link to={fork_url}>{fork_name}</Link>
+        <Text className={styles.itemForkDetail}>
+          Forked from{' '}
+          <Link to={{ pathname: fork_url }} type="text" target="_blank">
+            {fork_name}
+          </Link>
         </Text>
       )}
-      <Text>{description}</Text>
+      <Text className={styles.itemDescription}>{description}</Text>
     </Space>
   )
 }

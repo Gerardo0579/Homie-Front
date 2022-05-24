@@ -1,10 +1,11 @@
-import { Button, Col, Divider, Row, Space } from 'antd'
+import { Button, Col, Row } from 'antd'
 import { FC, useContext } from 'react'
-import { HomieListType } from '../../Types/HomieListType'
+import { HomieListType } from '../../../Types/HomieListType'
 import { observer } from 'mobx-react'
-import { HomieReposListItem } from './HomieRepoListItem'
-import { MainStore } from '../../Stores/MainStore'
-import { StoreContext } from '../Main/Main'
+import { HomieReposListItem } from './Item/HomieReposListItem'
+import { MainStore } from '../../../Stores/MainStore'
+import { StoreContext } from '../../Main/Main'
+import { HomieDivider as Divider } from '../../HomieDivider/HomieDivider'
 
 interface PaginationButtonProps {
   clickEvent: () => void
@@ -44,7 +45,9 @@ const HomieReposList: FC<HomieListProps> = ({ items }) => {
   ]
 
   return (
-    <Space direction="vertical">
+    <>
+      <Divider />
+      {`${storeRepos._totalResults} results over ${storeRepos._totalPages} pages. Page ${storeRepos._currentPage}`}
       <Divider />
       {items?.map((item) => {
         return (
@@ -55,7 +58,7 @@ const HomieReposList: FC<HomieListProps> = ({ items }) => {
         )
       })}
 
-      <Row style={{ marginTop: '2em', marginBottom: '2em' }} justify="center">
+      <Row style={{ marginTop: '5em', marginBottom: '2em' }} justify="center">
         {paginationButtons.map((btn) => {
           return (
             <Col>
@@ -68,7 +71,7 @@ const HomieReposList: FC<HomieListProps> = ({ items }) => {
           )
         })}
       </Row>
-    </Space>
+    </>
   )
 }
 

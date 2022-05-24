@@ -16,6 +16,7 @@ class StoreRepos {
   _selectLanguageInput: string | undefined = undefined
   _selectSortInput: string | undefined = undefined
   _totalPages: number = 1
+  _totalResults: number = 0
   _currentPage: number = 1
 
   constructor() {
@@ -60,6 +61,8 @@ class StoreRepos {
       })
   }
 
+  _getResultsPerPage = () => REPOS_PER_PAGE
+
   _updateSearchRepoTextInput = (value: string) => {
     this._currentPage = 1
     this._searchRepoTextInput = value
@@ -81,6 +84,7 @@ class StoreRepos {
   }
   _updateTotalPages = (totalRepos: number) => {
     this._totalPages = Math.ceil(totalRepos / REPOS_PER_PAGE)
+    this._totalResults = totalRepos
   }
 
   _updateCurrentPage = (page: number) => {

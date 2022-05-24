@@ -1,9 +1,9 @@
 import { Button, Card, Checkbox, Space } from 'antd'
-import { PlusIcon } from '../../Icons/PlusIcon'
-import { XMarkIcon } from '../../Icons/XMarkIcon'
-import { ReposListsItem } from '../../Types/ReposLists'
+import { PlusIcon } from '../../../../../Icons/PlusIcon'
+import { XMarkIcon } from '../../../../../Icons/XMarkIcon'
+import { ReposListsItem } from '../../../../../Types/ReposLists'
 
-export const HomieRepoListMenu = (
+export const HomieRepoItemMenu = (
   lists: ReposListsItem[],
   UpdateDropdownVisible: () => void,
   showModal: () => void

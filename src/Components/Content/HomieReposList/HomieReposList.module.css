@@ -1,0 +1,23 @@
+.reposSearchBar {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+}
+
+.reposSearchBar .searchInput {
+    border-radius: 6px;
+    border:1px solid #d0d7de ;
+    box-shadow: 0 0 0 1px rgba(208, 215, 222, 0.2) inset;
+    line-height: 20px;
+    font-size: 14px;
+    color: #24292f;
+    padding: 5px 12px;
+}
+.reposSearchBar .selectInput > div{
+    color: #24292f !important;
+    background-color: #f6f8fa !important;
+    box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04);
+    border: 1px solid rgba(27, 31, 36, 0.15) !important;
+    border-radius: 6px !important;
+    padding: 5px 16px;
+    font-weight: 500;
+}

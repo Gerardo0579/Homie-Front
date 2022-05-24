@@ -1,18 +1,21 @@
 import { Button, Divider, Form, Input, Modal, Space } from 'antd'
-import { ChangeEventHandler, FC, useContext, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { HomieBadge } from '../Badge/HomieBadge'
+import { HomieBadge } from '../../../../Badge/HomieBadge'
 import { observer } from 'mobx-react'
-import { MainStore } from '../../Stores/MainStore'
-import { StoreContext } from '../Main/Main'
+import { MainStore } from '../../../../../Stores/MainStore'
+import { StoreContext } from '../../../../Main/Main'
 
-interface HomieListModalProps {
+const GITHUB_URL =
+  'https://github.com/github/feedback/discussions/categories/lists-feedback'
+
+interface HomieRepoItemModalProps {
   repoId: number
   handleCancel: () => void
   isModalVisible: boolean
 }
 
-const HomieListModal: FC<HomieListModalProps> = ({
+const HomieRepoItemModal: FC<HomieRepoItemModalProps> = ({
   repoId,
   handleCancel,
   isModalVisible
@@ -74,10 +77,15 @@ const HomieListModal: FC<HomieListModalProps> = ({
         </Form>
         <Divider />
         <Space>
-          <HomieBadge content="Beta" />
+          <HomieBadge
+            borderColor="#2da44e"
+            backgroundColor="#fff"
+            fontColor="#1a7f37"
+            content="Beta"
+          />
           <div>
             Lists are currently in beta.{' '}
-            <Link to="https://github.com/github/feedback/discussions/categories/lists-feedback">
+            <Link to={{ pathname: GITHUB_URL }} type="text" target="_blank">
               Share feedback and report bugs.
             </Link>
           </div>
@@ -87,4 +95,4 @@ const HomieListModal: FC<HomieListModalProps> = ({
   )
 }
 
-export default observer(HomieListModal)
+export default observer(HomieRepoItemModal)

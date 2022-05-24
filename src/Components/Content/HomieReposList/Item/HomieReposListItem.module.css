@@ -1,0 +1,33 @@
+.itemWrapper{
+  padding-top: 24px !important;
+    padding-bottom: 24px !important;
+}
+.itemDescription{
+  color: #57606a;
+  font-size: 14px;
+}
+.itemForkDetail{
+  color: #57606a;
+  font-size: 12px;
+}
+.repoTitle{
+  font-size: 20px;
+  font-weight: 600;
+  color :#0969da;
+}
+.starButton > button:first-child{
+  border-radius: 0;
+  border-bottom-left-radius: 6px !important;
+  border-top-left-radius: 6px !important;
+  background-color: #f6f8fa !important;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.15), 0 1px 0 rgba(27, 31, 36, 0.04) inset;
+}
+.starButton > button:last-child {
+  border-radius: 0;
+  border-bottom-right-radius: 6px !important;
+  border-top-right-radius: 6px !important;
+  background-color: #f6f8fa !important;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.15), 0 1px 0 rgba(27, 31, 36, 0.04) inset;
+}

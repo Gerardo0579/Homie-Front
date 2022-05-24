@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { ForkIcon } from '../../../Icons/ForkIcon'
-import { BalanceIcon } from '../../../Icons/BalanceIcon'
-import { HomieLanguageItem } from '../../LanguageItem.tsx/HomieLanguageItem'
-import { LanguagesColorSchemasData } from '../LanguagesColorSchemasData'
+import { ForkIcon } from '../../../../../Icons/ForkIcon'
+import { BalanceIcon } from '../../../../../Icons/BalanceIcon'
+import { HomieLanguageItem } from '../../../../LanguageItem.tsx/HomieLanguageItem'
+import { LanguagesColorSchemasData } from '../../../LanguagesColorSchemasData'
 import { Space, Typography } from 'antd'
-import { StarIcon } from '../../../Icons/StarIcon'
+import { StarIcon } from '../../../../../Icons/StarIcon'
 
 const { Text } = Typography
 
-interface HomieRepoActionsProps {
+interface HomieRepoItemActionsProps {
   language: string
   language_url: string
   stars: number
@@ -21,9 +21,9 @@ interface HomieRepoActionsProps {
   last_update: string
 }
 
-export const HomieRepoActions: FC<HomieRepoActionsProps> = (item) => {
+export const HomieRepoItemActions: FC<HomieRepoItemActionsProps> = (item) => {
   return (
-    <Space>
+    <Space size={[20, 5]} wrap>
       {item.language && LanguageItem(item)}
       {item.stars > 0 && StarsItem(item)}
       {item.forks > 0 && ForksItem(item)}
@@ -33,9 +33,9 @@ export const HomieRepoActions: FC<HomieRepoActionsProps> = (item) => {
   )
 }
 
-const LanguageItem = (item: HomieRepoActionsProps) => {
+const LanguageItem = (item: HomieRepoItemActionsProps) => {
   return (
-    <Link to={item.language_url} type="text">
+    <Link to={{ pathname: item.language_url }} type="text" target="_blank">
       <HomieLanguageItem
         Content={item.language}
         CircleColor={GetLangaugeColor(item.language)}
@@ -54,17 +54,17 @@ const GetLangaugeColor = (language: string): string => {
   else return langColor[0].Color
 }
 
-const StarsItem = (item: HomieRepoActionsProps) => {
+const StarsItem = (item: HomieRepoItemActionsProps) => {
   return (
-    <Link to={item.stars_url} type="text">
+    <Link to={{ pathname: item.stars_url }} type="text" target="_blank">
       <StarIcon text={item.stars} />
     </Link>
   )
 }
 
-const ForksItem = (item: HomieRepoActionsProps) => {
+const ForksItem = (item: HomieRepoItemActionsProps) => {
   return (
-    <Link to={item.forks_url} type="text">
+    <Link to={{ pathname: item.forks_url }} type="text" target="_blank">
       <ForkIcon text={item.forks} />
     </Link>
   )
@@ -73,9 +73,9 @@ const ForksItem = (item: HomieRepoActionsProps) => {
 const LicenseItem = ({
   license_type = '',
   license_url = ''
-}: HomieRepoActionsProps) => {
+}: HomieRepoItemActionsProps) => {
   return (
-    <Link to={license_url} type="text">
+    <Link to={{ pathname: license_url }} type="text" target="_blank">
       <BalanceIcon text={license_type} />
     </Link>
   )

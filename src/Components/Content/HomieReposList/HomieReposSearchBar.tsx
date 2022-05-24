@@ -3,17 +3,20 @@ import { FC, useContext } from 'react'
 import { StoreContext } from '../../Main/Main'
 import { observer } from 'mobx-react'
 import { MainStore } from '../../../Stores/MainStore'
+import styles from './HomieReposList.module.css'
 
 const { Option, OptGroup } = Select
 
-const HomieRepoSearchBar: FC = () => {
+const HomieReposSearchBar: FC = () => {
   return (
-    <Row gutter={16}>
-      <Col span={12}>{SearchInputField()}</Col>
-      <Col span={4}>{SelectTypeInput()}</Col>
-      <Col span={4}>{SelectLanguageInput()}</Col>
-      <Col span={4}>{SelectSortInput()}</Col>
-    </Row>
+    <div className={styles.reposSearchBar}>
+      <Row gutter={8}>
+        <Col span={9}>{SearchInputField()}</Col>
+        <Col span={5}>{SelectTypeInput()}</Col>
+        <Col span={5}>{SelectLanguageInput()}</Col>
+        <Col span={5}>{SelectSortInput()}</Col>
+      </Row>
+    </div>
   )
 }
 
@@ -25,6 +28,7 @@ const SearchInputField = () => {
   return (
     <Input
       allowClear
+      className={styles.searchInput}
       placeholder="Find a repository..."
       value={store?._searchRepoTextInput}
       onChange={(e) => handleOnchage(e)}
@@ -39,6 +43,7 @@ const SelectTypeInput = () => {
 
   return (
     <Select
+      className={styles.selectInput}
       style={{ width: '100%' }}
       value={store?._selectTypeInput}
       onChange={(e) => handleOnchage(e)}
@@ -64,6 +69,7 @@ const SelectLanguageInput = () => {
     .filter((v, i, a) => a.indexOf(v) === i)
   return (
     <Select
+      className={styles.selectInput}
       style={{ width: '100%' }}
       value={store?._selectLanguageInput}
       onChange={store?._updateSelectLanguageInput}
@@ -89,6 +95,7 @@ const SelectSortInput = () => {
 
   return (
     <Select
+      className={styles.selectInput}
       style={{ width: '100%' }}
       value={store?._selectSortInput}
       onChange={(e) => handleOnchage(e)}
@@ -107,4 +114,4 @@ const SelectSortInput = () => {
   )
 }
 
-export default observer(HomieRepoSearchBar)
+export default observer(HomieReposSearchBar)

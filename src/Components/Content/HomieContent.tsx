@@ -1,9 +1,9 @@
 import { FC, useContext, useEffect } from 'react'
-import HomieReposList from '../HomieReposList/HomieReposList'
+import HomieReposList from './HomieReposList/HomieReposList'
 import { useParams } from 'react-router-dom'
 import useGetRepos from '../../Hooks/useGetRepos/useGetRepos'
 import { StoreContext } from '../Main/Main'
-import HomieRepoSearchBar from './HomieReposSection/HomieRepoSearchBar'
+import HomieReposSearchBar from './HomieReposList/HomieReposSearchBar'
 import { LoadingComponent } from '../HomieLoading/HomieLoading'
 import {
   configURLGetRepos,
@@ -30,6 +30,8 @@ const HomieContent: FC = () => {
     storeRepos?._updateReposList(data, username)
     storeRepos?._updateTotalPages(data?.total_count)
     if (data) storeLists?._createLists(data)
+    // we don't want to execute under other situations or could corrupt data
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, storeRepos])
 
   useEffect(() => {
@@ -44,6 +46,8 @@ const HomieContent: FC = () => {
     refetchRepos({
       url: configURLGetRepos({ params: paramsObj, username: username })
     })
+    // The same, we don't need executions for every used variable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     refetchRepos,
     storeRepos?._currentPage,
@@ -55,20 +59,14 @@ const HomieContent: FC = () => {
 
   return (
     <>
-      <HomieRepoSearchBar />
+      <HomieReposSearchBar />
+
       {!loading && storeRepos._reposList_updated() && (
-        <>
-          <HomieReposList items={storeRepos._reposList} />
-        </>
+        <HomieReposList items={storeRepos._reposList} />
       )}
 
       {!loading && storeRepos._reposList_empty() && (
-        <>
-          <HomieAlert
-            status="warning"
-            message="We did not find any repository"
-          />
-        </>
+        <HomieAlert status="warning" message="We did not find any repository" />
       )}
 
       {loading && <LoadingComponent tip="Searching for repositories" />}
