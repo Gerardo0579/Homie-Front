@@ -4,6 +4,7 @@ import useGetUser from '../../Hooks/useGetUser/useGetUser'
 import { HomieSiderProfile } from './HomieSiderProfile'
 import { LoadingComponent } from '../HomieLoading/HomieLoading'
 import { HomieAlert } from '../HomieAlert/HomieAlert'
+import styles from './HomieSider.module.css'
 
 export const HomieSider: FC = () => {
   const { username } = useParams<{ username: string }>()
@@ -15,7 +16,7 @@ export const HomieSider: FC = () => {
   }, [username, refetchUser])
 
   return (
-    <>
+    <div className={styles.bioWrapper}>
       {!loadingUser && error && (
         <>
           <HomieAlert
@@ -32,6 +33,6 @@ export const HomieSider: FC = () => {
       )}
 
       {loadingUser && <LoadingComponent tip="Loading user" />}
-    </>
+    </div>
   )
 }

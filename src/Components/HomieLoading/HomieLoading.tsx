@@ -1,17 +1,14 @@
-import { Col, Row, Spin } from 'antd'
+import { Spin } from 'antd'
 import { FC } from 'react'
+import styles from './HomieLoading.module.css'
 
 interface LoadingComponentProps {
   tip: string
 }
 export const LoadingComponent: FC<LoadingComponentProps> = ({ tip }) => {
   return (
-    <>
-      <Row style={{ marginTop: '50%' }} justify="center">
-        <Col span={4}>
-          <Spin size="large" tip={tip} />
-        </Col>
-      </Row>
-    </>
+    <div className={styles.loadingWrapper}>
+      <Spin className={styles.spinner} size="large" tip={tip} />
+    </div>
   )
 }

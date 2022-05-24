@@ -8,6 +8,7 @@ export const HomieFooter: FC = () => {
     <div className={styles.footerWraper}>
       {FooterItems.map((item) => (
         <Link
+          key={item.Key}
           className={styles.footerLink}
           to={{ pathname: item.siteUrl }}
           type="text"

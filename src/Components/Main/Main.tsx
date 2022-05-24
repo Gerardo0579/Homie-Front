@@ -1,5 +1,5 @@
 import { createContext, FC } from 'react'
-import { Col, Divider, Row } from 'antd'
+import { Divider } from 'antd'
 import { HomieHeader } from '../Header/HomieHeader'
 import { HomieSider } from '../HomieSider/HomieSider'
 import { HomieFooter } from '../Footer/Footer'

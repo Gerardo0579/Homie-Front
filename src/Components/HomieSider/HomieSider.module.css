@@ -6,6 +6,12 @@
     border: 1px solid #d0d7de;
 }
 
+.bioWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .userName {
     margin-top: 16px !important;
     margin-bottom: 16px !important;

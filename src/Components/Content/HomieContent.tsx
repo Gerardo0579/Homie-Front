@@ -18,7 +18,7 @@ const HomieContent: FC = () => {
     useContext(StoreContext)!
 
   const { username } = useParams<{ username: string }>()
-  const [data, loading, error, refetchRepos] = useGetRepos(
+  const [data, loading, , refetchRepos] = useGetRepos(
     configURLGetRepos({ username })
   )
 

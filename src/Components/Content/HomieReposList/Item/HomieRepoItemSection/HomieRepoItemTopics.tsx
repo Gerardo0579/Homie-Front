@@ -14,7 +14,7 @@ export const HomieRepoItemTopics: FC<HomieRepoItemTopicsProps> = ({
     <Space size={[10, 5]} wrap>
       {topics &&
         topics.map((topic) => {
-          return <HomieRepoItemTopic topic={topic} />
+          return <HomieRepoItemTopic key={topic} topic={topic} />
         })}
     </Space>
   )

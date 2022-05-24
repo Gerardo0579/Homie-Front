@@ -44,13 +44,12 @@ export const HomiePagination: FC = () => {
     <>
       {paginationButtons.map((btn) => {
         return (
-          <>
-            <PaginationButton
-              clickEvent={btn.clickEvent}
-              disable={btn.disable}
-              content={btn.content}
-            />
-          </>
+          <PaginationButton
+            key={btn.content}
+            clickEvent={btn.clickEvent}
+            disable={btn.disable}
+            content={btn.content}
+          />
         )
       })}
     </>
