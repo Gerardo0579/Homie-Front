@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { HomieReposListItem } from './Item/HomieReposListItem'
 import { MainStore } from '../../../Stores/MainStore'
 import { StoreContext } from '../../Main/Main'
-import { HomieDivider as Divider } from '../../HomieDivider/HomieDivider'
+import { HomieDivider as Divider } from '../../../Components/HomieDivider/HomieDivider'
 import { HomiePagination } from './HomiePagination'
 
 interface HomieListProps {

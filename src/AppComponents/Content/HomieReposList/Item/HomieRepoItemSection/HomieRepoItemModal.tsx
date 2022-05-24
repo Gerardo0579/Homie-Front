@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal, Space } from 'antd'
 import { FC, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { HomieBadge } from '../../../../Badge/HomieBadge'
+import { HomieBadge } from '../../../../../Components/HomieBadge/HomieBadge'
 import { observer } from 'mobx-react'
 import { MainStore } from '../../../../../Stores/MainStore'
 import { StoreContext } from '../../../../Main/Main'

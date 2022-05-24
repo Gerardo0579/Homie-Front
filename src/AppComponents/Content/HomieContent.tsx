@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom'
 import useGetRepos from '../../Hooks/useGetRepos/useGetRepos'
 import { StoreContext } from '../Main/Main'
 import HomieReposSearchBar from './HomieReposList/HomieReposSearchBar'
-import { LoadingComponent } from '../HomieLoading/HomieLoading'
+import { HomieLoadingComponent } from '../../Components/HomieLoading/HomieLoading'
 import {
   configURLGetRepos,
   UseGetReposParams
 } from '../../Hooks/useGetRepos/configURLGetRepos'
 import { observer } from 'mobx-react'
 import { MainStore } from '../../Stores/MainStore'
-import { HomieAlert } from '../HomieAlert/HomieAlert'
+import { HomieAlert } from '../../Components/HomieAlert/HomieAlert'
 
 const HomieContent: FC = () => {
   const { _storeRepos: storeRepos, _storeLists: storeLists }: MainStore =
@@ -69,7 +69,7 @@ const HomieContent: FC = () => {
         <HomieAlert status="warning" message="We did not find any repository" />
       )}
 
-      {loading && <LoadingComponent tip="Searching for repositories" />}
+      {loading && <HomieLoadingComponent tip="Searching for repositories" />}
     </>
   )
 }

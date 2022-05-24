@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import { Main } from './Components/Main/Main'
+import { Main } from './AppComponents/Main/Main'
 
 export const AppRouter: FC = () => (
   <Router>

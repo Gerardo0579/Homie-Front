@@ -1,7 +1,7 @@
 import { Space } from 'antd'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { HomieBadge } from '../../../../Badge/HomieBadge'
+import { HomieBadge } from '../../../../../Components/HomieBadge/HomieBadge'
 import styles from '../HomieReposListItem.module.css'
 
 interface HomieRepoItemHeaderProps {
