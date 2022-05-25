@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# How to run Homie Front project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to install
 
-## Available Scripts
+1. Clone the repository in desired location
+2. Create .env from .env.sample. **If you don't set .env vars, default values will be taken but some request may not work as expected**
+4. Execute `yarn install` on root folder. You must see a yarn.lock created
 
-In the project directory, you can run:
 
-### `yarn start`
+## How to execute
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Run application
+1. Run `yarn start` in roo folder.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Once it is running, you will be routed to `/yknx4`. You can change that route if you want but deafult route is the same as previous mentioned.
 
-### `yarn test`
+## Run tests and relevant tests
+1. Run `yarn test` in roo folder.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**TEST WERE DONE FOLLOWING [AHA PRINCIPLE](https://kentcdodds.com/blog/avoid-nesting-when-youre-testing "AHA PRINCIPLE") BY KENT C. DODDS**
 
-### `yarn build`
+While 38 test were done, because of lack of time, only some relevant tests were done to demostrate how to handle certain scenarios. In following lines there is a resume of some relevant test files you can check about 2 kind of test done.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Snapshop test
+Being the simpliest of the test, any snapshot is enough to see the *start of the art* in the project. Check for example
+`src/Components/HomieBadge/__TESTS__/HomiBadge.test.tsx`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Unit test
+Unit testing was done for two kind of elements in the project; for basic components and stores (mobx contexts). For each case check for example:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Store:** `src/__TESTS__/Stores/StoreRepos.test.tsx`
+**Store:** `src/AppComponents/Header/__TESTS__/HomieHeader.test.tsx`
 
-### `yarn eject`
+### Integration tests
+AS the most complex tests, these are the most complex and larg of all. Also, can include mock of stores, routes and other functionalities. Check for example:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**With store mock:** `src/AppComponents/Content/HomieReposList/Item/HomieRepoItemSection/__TESTS__/HomieRepoItemModal.test.tsx`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**With High order function (HOF) or callback:** `src/AppComponents/Content/HomieReposList/Item/HomieRepoItemSection/__TESTS__/HomieRepoItemModal.test.tsx`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Stack and considerations
+**UI**
+- Antd
+- Font Awesome
+- Antd Icons
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Testing**
+- Jest
+- RTL
 
-## Learn More
+**Store**
+- Mobx
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**CSS**
+- Plain css
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Package Manager**
+- Yarn
+- Craco *Comes with antd but is not needed for other tasks*
