@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import useGetRepos from '../../Hooks/useGetRepos/useGetRepos'
 import { StoreContext } from '../Main/Main'
 import HomieReposSearchBar from './HomieReposList/HomieReposSearchBar'
-import { HomieLoadingComponent } from '../../Components/HomieLoading/HomieLoading'
+import { HomieLoading } from '../../Components/HomieLoading/HomieLoading'
 import {
   configURLGetRepos,
   UseGetReposParams
@@ -28,7 +28,6 @@ const HomieContent: FC = () => {
 
   useEffect(() => {
     storeRepos?._updateReposList(data, username)
-    storeRepos?._updateTotalPages(data?.total_count)
     if (data) storeLists?._createLists(data)
     // we don't want to execute under other situations or could corrupt data
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,7 +68,7 @@ const HomieContent: FC = () => {
         <HomieAlert status="warning" message="We did not find any repository" />
       )}
 
-      {loading && <HomieLoadingComponent tip="Searching for repositories" />}
+      {loading && <HomieLoading tip="Searching for repositories" />}
     </>
   )
 }

@@ -39,7 +39,9 @@ export const HomieRepoItemActions: FC<HomieRepoItemActionsProps> = (item) => {
       {item.license_type && (
         <LicenseItem content={item.license_type} url={item.license_url || ''} />
       )}
-      {item.last_update && <Text>{`Updated on ${item.last_update}`}</Text>}
+      {item.last_update && (
+        <Text data-testid="actionLink">{`Updated on ${item.last_update}`}</Text>
+      )}
     </Space>
   )
 }
@@ -50,7 +52,11 @@ interface LinkItemProps {
 }
 const LinkItem: FC<LinkItemProps> = ({ url, Icon }) => {
   return (
-    <Link to={{ pathname: url }} type="text" target="_blank">
+    <Link
+      data-testid="actionLink"
+      to={{ pathname: url }}
+      type="text"
+      target="_blank">
       {Icon}
     </Link>
   )

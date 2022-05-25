@@ -10,7 +10,7 @@ import styles from '../HomieReposListItem.module.css'
 const GITHUB_URL =
   'https://github.com/github/feedback/discussions/categories/lists-feedback'
 
-interface HomieRepoItemModalProps {
+export interface HomieRepoItemModalProps {
   repoId: number
   handleCancel: () => void
   isModalVisible: boolean

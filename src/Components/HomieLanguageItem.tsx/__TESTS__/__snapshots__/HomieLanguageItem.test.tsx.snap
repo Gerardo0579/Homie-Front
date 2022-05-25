@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="LangColorContainer"
+>
+  <div
+    className="LanguageCircle"
+    style={
+      Object {
+        "backgroundColor": "1",
+      }
+    }
+  />
+  <div>
+    #fff
+  </div>
+</div>
+`;

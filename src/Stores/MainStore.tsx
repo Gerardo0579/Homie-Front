@@ -6,9 +6,9 @@ export class MainStore {
   _storeRepos: StoreRepos
   _storeLists: StoreLists
 
-  constructor() {
-    this._storeRepos = new StoreRepos()
-    this._storeLists = new StoreLists()
+  constructor(storeRepos: StoreRepos, storeLists: StoreLists) {
+    this._storeRepos = storeRepos
+    this._storeLists = storeLists
     makeAutoObservable(this)
   }
 }

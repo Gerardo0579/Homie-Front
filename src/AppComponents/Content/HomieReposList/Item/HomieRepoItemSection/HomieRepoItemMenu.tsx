@@ -21,6 +21,7 @@ export const HomieRepoItemMenu = (
         }
         actions={[
           <Button
+            data-testid="createListBtn"
             className={styles.createListBtn}
             onClick={() => {
               UpdateDropdownVisible()

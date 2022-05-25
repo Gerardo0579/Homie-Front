@@ -5,13 +5,13 @@ import styles from '../HomieReposListItem.module.css'
 
 const { Text } = Typography
 
-interface HomieRepoDescriptionProps {
+export interface HomieRepoItemDescriptionProps {
   is_forked: boolean
   fork_url?: string
   fork_name?: string
   description: string
 }
-export const HomieRepoItemDescription: FC<HomieRepoDescriptionProps> = ({
+export const HomieRepoItemDescription: FC<HomieRepoItemDescriptionProps> = ({
   is_forked,
   fork_url = '',
   fork_name = '',

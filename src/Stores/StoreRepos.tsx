@@ -7,7 +7,7 @@ import {
 
 const REPOS_PER_PAGE: number = process.env.REACT_APP_REPOS_PER_PAGE
   ? parseInt(process.env.REACT_APP_REPOS_PER_PAGE)
-  : 30
+  : 5
 
 class StoreRepos {
   _reposList: HomieListType[] = []
@@ -33,7 +33,8 @@ class StoreRepos {
 
   _updateReposList = (reposRawData: RepositoriesData, username: string) => {
     if (reposRawData?.items === undefined) this._reposList = []
-    else
+    else {
+      this._updateTotalPages(reposRawData.total_count)
       this._reposList = reposRawData.items.map((repo: RepositoriesItemData) => {
         return {
           id: repo.id,
@@ -59,6 +60,7 @@ class StoreRepos {
           })
         }
       })
+    }
   }
 
   _getResultsPerPage = () => REPOS_PER_PAGE

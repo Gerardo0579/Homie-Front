@@ -2,10 +2,10 @@ import { Spin } from 'antd'
 import { FC } from 'react'
 import styles from './HomieLoading.module.css'
 
-interface LoadingComponentProps {
+interface LoadingProps {
   tip: string
 }
-export const HomieLoadingComponent: FC<LoadingComponentProps> = ({ tip }) => {
+export const HomieLoading: FC<LoadingProps> = ({ tip }) => {
   return (
     <div className={styles.loadingWrapper}>
       <Spin className={styles.spinner} size="large" tip={tip} />

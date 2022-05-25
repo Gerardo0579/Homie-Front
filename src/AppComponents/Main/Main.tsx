@@ -6,12 +6,17 @@ import { HomieFooter } from '../Footer/HomieFooter'
 import HomieContent from '../Content/HomieContent'
 import { MainStore } from '../../Stores/MainStore'
 import styles from './Main.module.css'
+import StoreLists from '../../Stores/StoreLists'
+import StoreRepos from '../../Stores/StoreRepos'
 
-export const StoreContext = createContext<MainStore | null>(null)
+const storeRepos = new StoreRepos()
+const storeLists = new StoreLists()
+const mainStore = new MainStore(storeRepos, storeLists)
+export const StoreContext = createContext<MainStore>(mainStore)
 
 export const Main: FC = () => {
   return (
-    <StoreContext.Provider value={new MainStore()}>
+    <StoreContext.Provider value={mainStore}>
       <div className={styles.websiteWrapper}>
         <Divider className={styles.divider} />
         <div className={styles.pageWrapper}>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { HomieBadge } from '../../../../../Components/HomieBadge/HomieBadge'
 import styles from '../HomieReposListItem.module.css'
 
-interface HomieRepoItemHeaderProps {
+export interface HomieRepoItemHeaderProps {
   repo_name: string
   repo_url: string
   type: string

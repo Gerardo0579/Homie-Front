@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="loadingWrapper"
+>
+  <div
+    aria-busy={true}
+    aria-live="polite"
+    className="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text spinner"
+  >
+    <span
+      className="ant-spin-dot ant-spin-dot-spin"
+    >
+      <i
+        className="ant-spin-dot-item"
+      />
+      <i
+        className="ant-spin-dot-item"
+      />
+      <i
+        className="ant-spin-dot-item"
+      />
+      <i
+        className="ant-spin-dot-item"
+      />
+    </span>
+    <div
+      className="ant-spin-text"
+    >
+      1
+    </div>
+  </div>
+</div>
+`;
