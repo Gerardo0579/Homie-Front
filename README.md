@@ -21,11 +21,11 @@ Once it is running, you will be routed to `/yknx4`. You can change that route if
 
 While 38 test were done, because of lack of time, only some relevant tests were done to demostrate how to handle certain scenarios. In following lines there is a resume of some relevant test files you can check about 2 kind of test done.
 
-### Snapshop test
-Being the simpliest of the test, any snapshot is enough to see the *start of the art* in the project. Check for example
+### Snapshop tests
+Being the simpliest of the test, any snapshot is enough to see the *state of the art* in the project. Check for example
 `src/Components/HomieBadge/__TESTS__/HomiBadge.test.tsx`
 
-### Unit test
+### Unit tests
 Unit testing was done for two kind of elements in the project; for basic components and stores (mobx contexts). For each case check for example:
 
 **Store:** `src/__TESTS__/Stores/StoreRepos.test.tsx`
