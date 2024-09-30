@@ -1,7 +1,7 @@
 name: Reusable workflow example
 
 on:
-  pul_request:
+  pull_request:
     branches: [ main ]
     types: [ opened, edited, reopened, synchronize ]
 
