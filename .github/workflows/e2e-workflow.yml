@@ -1,0 +1,13 @@
+name: Reusable workflow example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-remote-workflow:
+    uses: Gerardo0579/A_Maze_Ing/.github/workflows/e2e-test.yml@workflow_test
+    with:
+      config-path: "Test input value"
+      
