@@ -1,9 +1,9 @@
 name: Reusable workflow example
 
 on:
-  push:
-    branches:
-      - main
+  pul_request:
+    branches: [ main ]
+    types: [ opened, edited, reopened, synchronize ]
 
 jobs:
   call-remote-workflow:
