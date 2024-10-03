@@ -16,18 +16,18 @@ jobs:
           $content = Get-Content "README.md" -Raw
           $content = $content -replace "Homie Front", "Homie-Front"
           $content | Set-Content -Path "README.md"
-          Get-Content cat "README.md"
+          Get-Content "README.md"
         shell: pwsh
       - name: Read file
         run: |
-          Get-Content cat "README.md"
+          Get-Content "README.md"
         shell: pwsh
   reread-file:
     runs-on: ubuntu-22.04
     steps:
       - name: Read file
         run: |
-          Get-Content cat "README.md"
+          Get-Content "README.md"
         shell: pwsh
   call-remote-workflow:
     needs: update-file
