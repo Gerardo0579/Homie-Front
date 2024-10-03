@@ -9,6 +9,8 @@ jobs:
   update-file:
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+      
       - name: Modify file
         run: |
           $content = Get-Content "README.md" -Raw
