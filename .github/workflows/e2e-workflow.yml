@@ -6,7 +6,29 @@ on:
     types: [ opened, edited, reopened, synchronize ]
 
 jobs:
+  update-file:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Modify file
+        run: |
+          $content = Get-Content "README.md" -Raw
+          $content = $content -replace "Homie Front", "Homie-Front"
+          $content | Set-Content -Path "README.md"
+          Write-Host cat "README.md"
+        shell: pwsh
+      - name: Read file
+        run: |
+          Write-Host cat "README.md"
+        shell: pwsh
+  reread-file:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Read file
+        run: |
+          Write-Host cat "README.md"
+        shell: pwsh
   call-remote-workflow:
+    needs: update-file
     uses: Gerardo0579/A_Maze_Ing/.github/workflows/e2e-test.yml@workflow_test
     with:
       config-path: "Test input value 1"
