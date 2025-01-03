@@ -44,3 +44,8 @@ jobs:
         with:
           config-path: "Test input value 1"
       
+      - name: Llamar al workflow reutilizable with data
+        uses: Gerardo0579/A_Maze_Ing/.github/workflows/info-test.yml@workflow_test
+        with:
+          config-path: "Test input value 1"
+        
