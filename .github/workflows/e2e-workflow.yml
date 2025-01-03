@@ -29,25 +29,6 @@ jobs:
         run: |
           Get-Content "README.md"
         shell: pwsh
-  call-remote-workflow:
-    runs-on: ubuntu-22.04
-    needs: update-file
-    steps:
-      - name: Descargar artefacto .env
-        uses: actions/download-artifact@v3
-        with:
-          name: env-file
-          path: .
-
-      - name: Llamar al workflow reutilizable
-        uses: Gerardo0579/A_Maze_Ing/.github/workflows/e2e-test.yml@workflow_test
-        with:
-          config-path: "Test input value 1"
-      
-      - name: Llamar al workflow reutilizable with data
-        uses: Gerardo0579/A_Maze_Ing/.github/workflows/info-test.yml@workflow_test
-        with:
-          config-path: "Test input value 1"
 
   call-reusable-workflow:
     runs-on: ubuntu-22.04
@@ -55,7 +36,7 @@ jobs:
     uses: Gerardo0579/A_Maze_Ing/.github/workflows/e2e-test.yml@workflow_test
     with:
       config-path: "Test input value 1"
-      
+
   call-reusable-workflow-with-data: runs-on: ubuntu-22.04
     needs: call-remote-workflow
     uses: Gerardo0579/A_Maze_Ing/.github/workflows/info-test.yml@workflow_test
