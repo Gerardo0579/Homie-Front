@@ -1,0 +1,43 @@
+name: Reusable workflow example
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, edited, reopened, synchronize ]
+
+jobs:
+  update-file:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Modify file
+        run: |
+          $content = Get-Content "README.md" -Raw
+          $content = $content -replace "Homie Front", "Homie-Front"
+          $content | Set-Content -Path "README.md"
+          Get-Content "README.md"
+        shell: pwsh
+      - name: Read file
+        run: |
+          Get-Content "README.md"
+        shell: pwsh
+  reread-file:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Read file
+        run: |
+          Get-Content "README.md"
+        shell: pwsh
+
+  call-reusable-workflow:
+    needs: update-file
+    uses: Gerardo0579/A_Maze_Ing/.github/workflows/e2e-test.yml@workflow_test
+    with:
+      config-path: "Test input value 1"
+
+  call-reusable-workflow-with-data:
+    needs: update-file
+    uses: Gerardo0579/A_Maze_Ing/.github/workflows/info-test.yml@workflow_test
+        
+
