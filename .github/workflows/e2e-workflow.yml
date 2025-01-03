@@ -37,7 +37,9 @@ jobs:
     with:
       config-path: "Test input value 1"
 
-  call-reusable-workflow-with-data: runs-on: ubuntu-22.04
+  call-reusable-workflow-with-data:
+    runs-on: ubuntu-22.04
     needs: call-remote-workflow
     uses: Gerardo0579/A_Maze_Ing/.github/workflows/info-test.yml@workflow_test
         
+
