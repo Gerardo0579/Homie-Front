@@ -31,13 +31,13 @@ jobs:
         shell: pwsh
 
   call-reusable-workflow:
-    needs: call-remote-workflow
+    needs: update-file
     uses: Gerardo0579/A_Maze_Ing/.github/workflows/e2e-test.yml@workflow_test
     with:
       config-path: "Test input value 1"
 
   call-reusable-workflow-with-data:
-    needs: call-remote-workflow
+    needs: update-file
     uses: Gerardo0579/A_Maze_Ing/.github/workflows/info-test.yml@workflow_test
         
 
